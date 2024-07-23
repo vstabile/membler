@@ -22,8 +22,8 @@
 	"comments": "comments",
 	"bookmark-post": "Bookmark post",
 	"report-post": "Report post",
-	"create-community-title": "Now let’s create your community",
-	"create-community-text": "Don't worry — you can always change this information later",
+	"create-community-title": "Let’s create your community",
+	"create-community-text": "You can always change this information later",
 	"name": "Name",
 	"community-url": "Community URL",
 	"default-language": "Default language",
@@ -37,12 +37,14 @@
 	"influencers": "influencers",
 	"creators": "creators",
 	"sign-up-title": "Create your account",
-	"sign-up-text": "Do you already have a Nostr account?",
+	"sign-up-text": "Already have a Nostr account?",
 	"click-here": "Click here.",
 	"sign-in-title": "Sign in to your Nostr account",
 	"sign-in-text": "Don't have an account yet?",
 	"private-key": "Private Key",
 	"sign-in-with-extension": "Sign In with Extension",
 	"sign-in-with-key": "Sign In with Key",
-	"or": "or"
+	"or": "or",
+	"og-title": "Membler",
+	"og-description": "The Nostr community platform for developers, educators, events, influencers, and creators."
 }

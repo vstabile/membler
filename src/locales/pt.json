@@ -44,5 +44,7 @@
 	"private-key": "Chave Privada",
 	"sign-in-with-extension": "Entrar com Extensão",
 	"sign-in-with-key": "Entrar com Chave",
-	"or": "ou"
+	"or": "ou",
+	"og-title": "Membler",
+	"og-description": "A plataforma de comunidades no Nostr para desenvolvedores, educadores, eventos, influenciadores e criadores."
 }

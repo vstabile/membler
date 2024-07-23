@@ -5,7 +5,6 @@
 	import { t } from 'svelte-i18n';
 	import { browser } from '$app/environment';
 	import { page } from '$app/stores';
-	import { onMount } from 'svelte';
 
 	locale.set('en');
 	const localeParam = $page.url.searchParams.get('locale');
@@ -58,12 +57,12 @@
 	</nav>
 	<div class="flex h-full w-full items-center p-6 md:p-9">
 		<div class="flex w-full flex-col">
-			<h1 class="text-center text-4xl font-bold leading-tight md:text-5xl md:leading-tight">
+			<h1 class="text-center text-4xl font-bold leading-tight sm:text-5xl md:leading-tight">
 				{@html $t('home-title')}
-				<br class="md:hidden" />
+				<br class="sm:hidden" />
 				<span bind:this={typing}></span>
 			</h1>
-			<p class="mt-8 text-center text-xl">
+			<p class="mt-8 text-center text-lg sm:text-xl">
 				{$t('home-text')}
 			</p>
 			<div class="mt-12 text-center">
