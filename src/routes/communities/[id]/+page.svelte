@@ -4,6 +4,8 @@
 	import Sidebar from '$lib/components/Sidebar.svelte';
 	import Post from '$lib/components/Post.svelte';
 	import NewPost from '$lib/components/NewPost.svelte';
+	import * as Dialog from '$lib/components/ui/dialog/index.js';
+	import * as Drawer from '$lib/components/ui/drawer/index.js';
 	import themes from '$lib/stores/themes';
 	import { page } from '$app/stores';
 	import { LucideChevronDown } from 'lucide-svelte';
@@ -18,10 +20,10 @@
 
 <Menu />
 <div class="fixed flex h-screen w-full">
-	<div class="border-r-sidebarBorder bg-sidebarBg h-full w-16 border-r p-3">
+	<div class="h-full w-16 border-r border-r-sidebarBorder bg-sidebarBg p-3">
 		<CommunitiesBar />
 	</div>
-	<div class="border-r-sidebarBorder bg-sidebarBg h-full">
+	<div class="h-full border-r-sidebarBorder bg-sidebarBg">
 		<Sidebar />
 	</div>
 	<div class="h-full w-full border-l">
@@ -54,7 +56,7 @@
 				</DropdownMenu.Content>
 			</DropdownMenu.Root>
 			<div>
-				<button class="bg-brand text-buttonText rounded-md px-5 text-sm font-semibold leading-8"
+				<button class="rounded-md bg-brand px-5 text-sm font-semibold leading-8 text-buttonText"
 					>{$t('new-post')}</button
 				>
 			</div>

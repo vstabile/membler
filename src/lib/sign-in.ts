@@ -22,8 +22,6 @@ async function signIn(method?: SignInMethod) {
 			break;
 		}
 	}
-
-	clearReadModels();
 }
 
 export default signIn;
@@ -52,13 +50,8 @@ export async function nip07SignIn() {
 }
 
 export function signOut(): void {
-	clearReadModels();
 	$ndk.signer = undefined;
 	session.clear();
 
 	goto('/');
-}
-
-function clearReadModels() {
-	profile.clear();
 }

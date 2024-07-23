@@ -13,6 +13,7 @@
 	const encodedPath = encodeURIComponent('/communities/new');
 	if (browser && !$session.user) goto(`/sign-in?redirectUrl=${encodedPath}`);
 
+	$: console.log($profile);
 	$: name = `${$profile.name}'s Community`;
 	$: slug = name
 		.toLowerCase()
@@ -20,11 +21,10 @@
 		.replace(/[^a-z0-9-]/g, '')
 		.replace(/-+/g, '-')
 		.replace(/^-+|-+$/g, '');
-	$: console.log($profile);
 </script>
 
 <div class="flex min-h-screen w-full justify-center md:items-center md:bg-purple-100">
-	<div class="w-full md:my-4 md:max-w-[520px]">
+	<div class="w-full md:my-4 md:min-h-[600px] md:max-w-[520px]">
 		<div
 			class="m-auto flex min-h-screen w-full flex-col items-center border-gray-200 bg-white p-6 py-0 pt-10 md:min-h-0 md:rounded-2xl md:border md:p-12 md:py-10"
 		>

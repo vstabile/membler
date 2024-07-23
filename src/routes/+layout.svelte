@@ -10,7 +10,6 @@
 
 	const thumbnails: Record<string, string> = { en: thumbnail_en, pt: thumbnail_pt };
 
-	$: console.log($locale);
 	$: thumbnail = thumbnails[$locale || 'en'] || thumbnail_en;
 
 	onMount(async () => {

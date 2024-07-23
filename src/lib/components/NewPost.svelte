@@ -11,7 +11,7 @@
 		{#if $currentUser.picture && $currentUser.picture !== ''}
 			<img src={$currentUser.picture} alt={$currentUser.name} class="h-8 w-8 rounded-md" />
 		{/if}
-		<p class="text-md pl-4 font-light text-gray-500">{$t('start-post')}</p>
+		<p class="text-md pl-4 text-gray-500">{$t('start-post')}</p>
 	</div>
 	<div class="flex h-8 w-8 items-center justify-center rounded-lg bg-gray-200 text-gray-500">
 		<LucidePlus class="h-4" />

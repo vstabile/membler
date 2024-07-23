@@ -39,7 +39,7 @@
 					<span class="mr-2 text-sm">{$currentUser.name}</span>
 					<span class="text-xs font-light text-gray-600">4d</span>
 				</div>
-				<div class="mt-1 text-xs font-light text-gray-600">
+				<div class="mt-1 text-xs text-gray-600">
 					{$currentUser.about}
 				</div>
 			</div>

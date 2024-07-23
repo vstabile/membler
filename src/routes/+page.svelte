@@ -44,7 +44,7 @@
 <div class="flex h-screen flex-col justify-center bg-purple-200">
 	<nav class="flex items-center justify-between px-6 py-6 md:px-10">
 		<div>
-			<a href="/" class="logo text-3xl font-bold text-purple-900">Membler</a>
+			<a href="/" class="logo text-2xl font-bold text-purple-900 sm:text-3xl">Membler</a>
 		</div>
 		<div>
 			<a href="/sign-in" class="mr-4">{$t('sign-in')}</a>
@@ -60,7 +60,7 @@
 			<h1 class="text-center text-4xl font-bold leading-tight sm:text-5xl md:leading-tight">
 				{@html $t('home-title')}
 				<br class="sm:hidden" />
-				<span bind:this={typing}></span>
+				<span bind:this={typing} class="typing text-orange-700"></span>
 			</h1>
 			<p class="mt-8 text-center text-lg sm:text-xl">
 				{$t('home-text')}
@@ -68,7 +68,7 @@
 			<div class="mt-12 text-center">
 				<a
 					href="/communities/new"
-					class="rounded bg-gradient-to-r from-purple-600 to-purple-800 px-12 py-4 font-semibold text-white hover:drop-shadow-lg"
+					class="glow rounded bg-gradient-to-r from-purple-600 to-purple-800 px-12 py-4 font-semibold text-white"
 					>{$t('get-started')}</a
 				>
 			</div>
@@ -80,3 +80,15 @@
 		</a>
 	</div>
 </div>
+
+<style>
+	.typing {
+		background-image: linear-gradient(to right, #ea580c, #f97316);
+		color: transparent;
+		background-clip: text;
+	}
+
+	.glow:hover {
+		box-shadow: 0 0 15px rgb(168 85 247);
+	}
+</style>
