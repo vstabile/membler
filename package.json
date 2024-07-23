@@ -12,6 +12,7 @@
 		"format": "prettier --write ."
 	},
 	"devDependencies": {
+		"@fontsource/roboto": "^5.0.13",
 		"@iconify-json/lucide": "^1.1.200",
 		"@sveltejs/adapter-auto": "^3.0.0",
 		"@sveltejs/adapter-cloudflare": "^4.6.1",
@@ -19,12 +20,14 @@
 		"@sveltejs/vite-plugin-svelte": "^3.0.0",
 		"@types/dompurify": "^3.0.5",
 		"@types/eslint": "^8.56.7",
+		"@types/typed.js": "^2.0.0",
 		"autoprefixer": "^10.4.19",
 		"eslint": "^9.0.0",
 		"eslint-config-prettier": "^9.1.0",
 		"eslint-plugin-svelte": "^2.36.0",
 		"globals": "^15.0.0",
 		"postcss": "^8.4.38",
+		"postcss-import": "^16.1.0",
 		"prettier": "^3.1.1",
 		"prettier-plugin-svelte": "^3.1.2",
 		"prettier-plugin-tailwindcss": "^0.6.4",
@@ -39,11 +42,13 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@nostr-dev-kit/ndk": "^2.8.2",
 		"bits-ui": "^0.21.12",
 		"clsx": "^2.1.1",
 		"dompurify": "^3.1.6",
 		"lucide-svelte": "^0.411.0",
 		"svelte-i18n": "^4.0.0",
+		"svelte-persisted-store": "^0.11.0",
 		"tailwind-merge": "^2.4.0",
 		"tailwind-variants": "^0.2.1",
 		"typed.js": "^2.1.0"

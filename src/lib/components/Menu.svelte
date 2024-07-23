@@ -6,11 +6,12 @@
 	import LucideLogOut from '~icons/lucide/log-out';
 	import * as DropdownMenu from '$lib/components/ui/dropdown-menu';
 	import * as Tooltip from '$lib/components/ui/tooltip';
-	import currentUser from '$lib/stores/currentUser';
+	import profile from '$lib/stores/profile';
+	import { signOut } from '$lib/sign-in';
 	import { t } from 'svelte-i18n';
 </script>
 
-<div class="bg-headerBg flex w-full items-center justify-between border-b px-6 py-2">
+<div class="flex w-full items-center justify-between border-b bg-headerBg px-6 py-2">
 	<div class="flex flex-grow justify-center">
 		<Searchbar />
 	</div>
@@ -34,10 +35,10 @@
 		<DropdownMenu.Root>
 			<DropdownMenu.Trigger>
 				<button title="Account" class="flex items-center justify-center">
-					{#if $currentUser.picture && $currentUser.picture !== ''}
-						<img src={$currentUser.picture} alt={$currentUser.name} class="h-8 w-8 rounded-md" />
+					{#if $profile.picture && $profile.picture !== ''}
+						<img src={$profile.picture} alt={$profile.name} class="h-8 w-8 rounded-md" />
 					{:else}
-						<LucideUser class="h-8 w-8 rounded-md" />
+						<LucideUser />
 					{/if}
 				</button>
 			</DropdownMenu.Trigger>
@@ -54,7 +55,7 @@
 					</DropdownMenu.Item>
 					<DropdownMenu.Separator />
 					<DropdownMenu.Item class="text-sm">
-						<a href="/sign-out" class="flex w-full">
+						<a href="/sign-out" class="flex w-full" on:click|preventDefault={signOut}>
 							<LucideLogOut class="mr-2" />
 							{$t('sign-out')}
 						</a>

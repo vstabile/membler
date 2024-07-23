@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+@import 'fonts.css';
+
 @layer base {
 	:root {
 		--background: 0 0% 100%;
@@ -19,7 +21,8 @@
 		--border: 214.3 31.8% 91.4%;
 		--input: 214.3 31.8% 91.4%;
 
-		--primary: 222.2 47.4% 11.2%;
+		/* --primary: 222.2 47.4% 11.2%; */
+		--primary: 274 66% 32%;
 		--primary-foreground: 210 40% 98%;
 
 		--secondary: 210 40% 96.1%;
