@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { LucidePlus } from 'lucide-svelte';
 	import currentUser from '$lib/stores/currentUser';
-	import { t } from 'svelte-i18n';
+	import { t } from '$lib/i18n';
 </script>
 
 <div

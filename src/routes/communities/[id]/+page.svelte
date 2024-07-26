@@ -6,16 +6,30 @@
 	import NewPost from '$lib/components/NewPost.svelte';
 	import * as Dialog from '$lib/components/ui/dialog/index.js';
 	import * as Drawer from '$lib/components/ui/drawer/index.js';
+	// import communities from '$lib/stores/communities';
+	import community from '$lib/stores/community';
 	import themes from '$lib/stores/themes';
 	import { page } from '$app/stores';
 	import { LucideChevronDown } from 'lucide-svelte';
 	import LucideTrash2 from '~icons/lucide/trash-2';
 	import LucideLogOut from '~icons/lucide/log-out';
 	import * as DropdownMenu from '$lib/components/ui/dropdown-menu';
-	import { t } from 'svelte-i18n';
+	import { t } from '$lib/i18n';
+	import session from '$lib/stores/session';
+	import { PUBLIC_DOMAIN, PUBLIC_PORT, PUBLIC_PROTOCOL } from '$env/static/public';
+	import { browser } from '$app/environment';
 
 	$: id = $page.params.id;
+	$: fragment = $page.url.hash;
 	$: themes.getThemeById(id);
+	// $: community = $communities.find((community) => community.id === id)!;
+	$: if (browser && community == undefined)
+		window.location.href = `${PUBLIC_PROTOCOL}://www.${PUBLIC_DOMAIN}:${PUBLIC_PORT}`;
+
+	$: if (fragment && fragment.split('=')[0] === '#session') {
+		const s = fragment.split('=')[1];
+		session.fromFragment(s);
+	}
 </script>
 
 <Menu />
@@ -24,7 +38,7 @@
 		<CommunitiesBar />
 	</div>
 	<div class="h-full border-r-sidebarBorder bg-sidebarBg">
-		<Sidebar />
+		<Sidebar community={$community} />
 	</div>
 	<div class="h-full w-full border-l">
 		<div class="flex h-16 items-center justify-between border-b px-6">

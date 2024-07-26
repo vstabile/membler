@@ -1,28 +1,30 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import communities from '$lib/stores/communities';
 	import LucideHome from '~icons/lucide/home';
 	import LucideUsers from '~icons/lucide/users';
 	import LucideArrowUpRight from '~icons/lucide/arrow-up-right';
 	import LucidePlus from '~icons/lucide/plus';
 	import LucideChevronDown from '~icons/lucide/chevron-down';
 	import LucidePalette from '~icons/lucide/palette';
+	import { Skeleton } from '$lib/components/ui/skeleton';
 	import * as DropdownMenu from '$lib/components/ui/dropdown-menu';
-	import { t } from 'svelte-i18n';
+	import { t } from '$lib/i18n';
+	import type { Community } from '$lib/stores/community';
 
-	$: id = $page.params.id;
-	$: community = $communities.find((community) => community.id === id)!;
+	export let community: Community | undefined;
 </script>
 
-<nav class="text-sidebarText bg-sidebarBg w-72">
+<nav class="w-72 bg-sidebarBg text-sidebarText">
 	<DropdownMenu.Root>
 		<DropdownMenu.Trigger asChild let:builder>
 			<div
-				class="border-b-sidebarBorder flex h-16 w-full cursor-pointer items-center justify-between border-b px-4 py-3"
+				class="flex h-16 w-full cursor-pointer items-center justify-between border-b border-b-sidebarBorder px-4 py-3"
 				use:builder.action
 				{...builder}
 			>
-				{#if community.logo}
+				{#if community === undefined}
+					<Skeleton class="h-6 w-2/3 rounded bg-sidebarText" />
+				{:else if community.logo}
 					<img src={community.logo} alt={community.name} class="max-h-6" />
 				{:else}
 					<div class=" text-lg font-semibold">
@@ -38,7 +40,7 @@
 					{$t('community').toUpperCase()}
 				</DropdownMenu.Label>
 				<DropdownMenu.Item class="text-sm">
-					<a href="/communities/{id}/settings/theme" class="flex w-full">
+					<a href="/communities/{community?.id}/settings/theme" class="flex w-full">
 						<LucidePalette class="mr-2" />
 						{$t('customize-theme')}
 					</a>
@@ -49,15 +51,15 @@
 	<div class="h-screen overflow-y-scroll">
 		<div class="flex w-full flex-col p-4 text-sm">
 			<a
-				href="/communities/{id}/home"
-				class="hover:bg-itemHover flex items-center rounded-md px-1 py-2"
+				href="/communities/{community?.id}/home"
+				class="flex items-center rounded-md px-1 py-2 hover:bg-itemHover"
 			>
 				<LucideHome class="ml-1 mr-2" />
 				{$t('home')}
 			</a>
 			<a
-				href="/communities/{id}/members"
-				class="hover:bg-itemHover flex items-center rounded-md px-1 py-2"
+				href="/communities/{community?.id}/members"
+				class="flex items-center rounded-md px-1 py-2 hover:bg-itemHover"
 			>
 				<LucideUsers class="ml-1 mr-2" />
 				{$t('members')}
@@ -66,20 +68,20 @@
 		<div class="flex w-full flex-col p-4 pt-2 text-sm">
 			<div class="mb-2 ml-1 font-semibold">Get Started</div>
 			<a
-				href="/communities/{id}/s/start-here"
-				class="hover:bg-itemHover flex items-center rounded-md p-1"
+				href="/communities/{community?.id}/s/start-here"
+				class="flex items-center rounded-md p-1 hover:bg-itemHover"
 			>
 				<span class="ml-1 mr-2 text-lg">🏠</span><span>Start Here</span>
 			</a>
 			<a
-				href="/communities/{id}/s/say-hello"
-				class="hover:bg-itemHover flex items-center rounded-md p-1"
+				href="/communities/{community?.id}/s/say-hello"
+				class="flex items-center rounded-md p-1 hover:bg-itemHover"
 			>
 				<span class="ml-1 mr-2 text-lg">👋</span><span>Say Hello</span>
 			</a>
 			<a
-				href="/communities/{id}/s/resources"
-				class="hover:bg-itemHover flex items-center rounded-md p-1"
+				href="/communities/{community?.id}/s/resources"
+				class="flex items-center rounded-md p-1 hover:bg-itemHover"
 			>
 				<span class="ml-1 mr-2 text-lg">📖</span><span>Resources</span>
 			</a>
@@ -87,8 +89,8 @@
 		<div class="flex w-full flex-col p-4 pt-2 text-sm">
 			<div class="mb-2 ml-1 font-semibold">Spaces</div>
 			<a
-				href="/communities/{id}/s/add"
-				class="hover:bg-itemHover flex items-center rounded-md px-1 py-2"
+				href="/communities/{community?.id}/s/add"
+				class="flex items-center rounded-md px-1 py-2 hover:bg-itemHover"
 			>
 				<LucidePlus class="ml-1 mr-2" />
 				{$t('add-space')}
@@ -97,14 +99,14 @@
 		<div class="flex w-full flex-col p-4 pt-2 text-sm">
 			<div class="mb-2 ml-1 font-semibold">{$t('links')}</div>
 			<a
-				href="/communities/{id}/s/start-here"
-				class="hover:bg-itemHover flex items-center rounded-md px-1 py-2"
+				href="/communities/{community?.id}/s/start-here"
+				class="flex items-center rounded-md px-1 py-2 hover:bg-itemHover"
 			>
 				<LucideArrowUpRight class="ml-1 mr-2" /> Link 1
 			</a>
 			<a
-				href="/communities/{id}/s/say-hello"
-				class="hover:bg-itemHover flex items-center rounded-md px-1 py-2"
+				href="/communities/{community?.id}/s/say-hello"
+				class="flex items-center rounded-md px-1 py-2 hover:bg-itemHover"
 			>
 				<LucideArrowUpRight class="ml-1 mr-2" /> Link 2
 			</a>

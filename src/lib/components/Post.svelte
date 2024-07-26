@@ -8,7 +8,7 @@
 	import * as DropdownMenu from '$lib/components/ui/dropdown-menu';
 	import { browser } from '$app/environment';
 	import DOMPurify from 'dompurify';
-	import { t } from 'svelte-i18n';
+	import { t } from '$lib/i18n';
 
 	const TRUCATION_HEIGHT = 240;
 	let content = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean dapibus sollicitudin luctus. Vestibulum ut dapibus sem. Curabitur eu hendrerit turpis. Curabitur vulputate pulvinar mi, eu vehicula libero sollicitudin eget.
@@ -37,7 +37,7 @@
 			<div>
 				<div class="flex items-center">
 					<span class="mr-2 text-sm">{$currentUser.name}</span>
-					<span class="text-xs font-light text-gray-600">4d</span>
+					<span class="text-xs text-gray-400">4d</span>
 				</div>
 				<div class="mt-1 text-xs text-gray-600">
 					{$currentUser.about}

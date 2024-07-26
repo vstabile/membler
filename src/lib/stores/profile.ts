@@ -1,12 +1,7 @@
 import { derived } from 'svelte/store';
 import ndk from '$lib/stores/ndk';
 import session from '$lib/stores/session';
-import {
-	NDKEvent,
-	type NDKFilter,
-	type NDKUserProfile,
-	profileFromEvent
-} from '@nostr-dev-kit/ndk';
+import { NDKEvent, type NDKFilter, profileFromEvent } from '@nostr-dev-kit/ndk';
 
 export type Profile = {
 	name: string | undefined;
@@ -14,34 +9,18 @@ export type Profile = {
 	picture: string | undefined;
 };
 
-const emptyProfile: Profile = {
-	name: undefined,
-	about: undefined,
-	picture: undefined
-};
-
-// function createProfileStore() {
-// 	const { subscribe, set, update } = persisted<Profile>('profile', emptyProfile);
-
-// 	return {
-// 		subscribe,
-// 		set: (ndkProfile: NDKUserProfile) => {
-// 			set({
-// 				name: ndkProfile.name,
-// 				about: ndkProfile.about,
-// 				picture: ndkProfile.picture as string
-// 			});
-// 		},
-// 		clear: () => set(emptyProfile)
-// 	};
-// }
-
-const profile = derived(
+const profile = derived<[typeof ndk, typeof session], Profile | undefined>(
 	[ndk, session],
-	([$ndk, $session], set) => {
+	([$ndk, $session], set, update) => {
 		const pubkey = $session.user?.pubkey;
 
-		if (!$ndk || !$session.user || !pubkey) return set(emptyProfile);
+		if (!$ndk || !$session.user || !pubkey) return undefined;
+
+		set({
+			name: '',
+			about: '',
+			picture: `https://robohash.org/${pubkey}.png?set=set1&size=96x96`
+		});
 
 		const filters: NDKFilter = { authors: [pubkey], kinds: [0] };
 
@@ -70,7 +49,7 @@ const profile = derived(
 			});
 		});
 	},
-	emptyProfile
+	undefined
 );
 
 export default profile;

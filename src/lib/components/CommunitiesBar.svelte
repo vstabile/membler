@@ -3,22 +3,30 @@
 	import communities from '$lib/stores/communities';
 	import LucidePlus from '~icons/lucide/plus';
 	import * as Tooltip from '$lib/components/ui/tooltip/index.js';
-	import { t } from 'svelte-i18n';
+	import { t } from '$lib/i18n';
+	import session from '$lib/stores/session';
+	import { PUBLIC_DOMAIN, PUBLIC_PROTOCOL, PUBLIC_PORT } from '$env/static/public';
 
+	let token = '';
 	$: id = $page.params.id;
+	$: if ($session) token = encodeURIComponent(JSON.stringify($session));
 </script>
 
 <div>
 	{#each $communities as community}
 		<div
-			class="text-sidebarText mb-3 flex h-10 w-10 items-center justify-center rounded-lg"
+			class="mb-3 flex h-10 w-10 items-center justify-center rounded-lg text-sidebarText"
 			class:outline={community.id === id}
 			class:outline-2={community.id === id}
 			class:outline-offset-2={community.id === id}
 		>
 			<Tooltip.Root>
 				<Tooltip.Trigger asChild let:builder>
-					<a href="/communities/{community.id}" use:builder.action {...builder}>
+					<a
+						href="{PUBLIC_PROTOCOL}://{community.subdomain}.{PUBLIC_DOMAIN}:{PUBLIC_PORT}#session={token}"
+						use:builder.action
+						{...builder}
+					>
 						{#if community.icon}
 							<img alt={community.name} src={community.icon} class="rounded-lg" />
 						{:else}
@@ -36,11 +44,11 @@
 			</Tooltip.Root>
 		</div>
 	{/each}
-	<div class="bg-itemHover flex h-10 w-10 rounded-lg">
+	<div class="flex h-10 w-10 rounded-lg bg-itemHover">
 		<Tooltip.Root>
 			<Tooltip.Trigger asChild let:builder>
 				<a
-					href="/communities/new"
+					href="{PUBLIC_PROTOCOL}://www.{PUBLIC_DOMAIN}:{PUBLIC_PORT}/communities/new"
 					class="flex h-full w-full items-center justify-center"
 					use:builder.action
 					{...builder}

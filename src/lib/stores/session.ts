@@ -28,6 +28,18 @@ function createSessionStore() {
 				return { ...session, user, signInMethod, privateKey };
 			});
 		},
+		fromFragment(token: string) {
+			const decodedToken = decodeURIComponent(token);
+			const sessionObject = JSON.parse(decodedToken);
+			update((session) => {
+				return {
+					...session,
+					user: sessionObject.user,
+					signInMethod: sessionObject.signInMethod,
+					privateKey: sessionObject.privateKey
+				};
+			});
+		},
 		clear: () => set(emptySession)
 	};
 }

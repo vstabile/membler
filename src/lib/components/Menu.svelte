@@ -8,7 +8,7 @@
 	import * as Tooltip from '$lib/components/ui/tooltip';
 	import profile from '$lib/stores/profile';
 	import { signOut } from '$lib/sign-in';
-	import { t } from 'svelte-i18n';
+	import { t } from '$lib/i18n';
 </script>
 
 <div class="flex w-full items-center justify-between border-b bg-headerBg px-6 py-2">
@@ -35,10 +35,8 @@
 		<DropdownMenu.Root>
 			<DropdownMenu.Trigger>
 				<button title="Account" class="flex items-center justify-center">
-					{#if $profile.picture && $profile.picture !== ''}
-						<img src={$profile.picture} alt={$profile.name} class="h-8 w-8 rounded-md" />
-					{:else}
-						<LucideUser />
+					{#if $profile}
+						<img src={$profile.picture} alt={$profile.name} class="h-8 w-8 rounded-md bg-white" />
 					{/if}
 				</button>
 			</DropdownMenu.Trigger>

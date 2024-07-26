@@ -1,7 +1,7 @@
 <script>
 	import Input from './ui/input/input.svelte';
 	import LucideSearch from '~icons/lucide/search';
-	import { t } from 'svelte-i18n';
+	import { t } from '$lib/i18n';
 </script>
 
 <div class="relative flex w-[30rem] items-center">

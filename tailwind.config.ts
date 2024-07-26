@@ -59,6 +59,18 @@ const config: Config = {
 				itemActiveText: 'var(--item-active-text-color)',
 				itemHover: 'var(--item-hover-color)'
 			},
+			backgroundImage: {
+				'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))'
+			},
+			animation: {
+				'pulse-muted': 'pulse-muted 2s cubic-bezier(0.4, 0, 0.6, 1) infinite'
+			},
+			keyframes: {
+				'pulse-muted': {
+					'0%, 100%': { opacity: '0.20' },
+					'50%': { opacity: '0.05' }
+				}
+			},
 			borderRadius: {
 				lg: 'var(--radius)',
 				md: 'calc(var(--radius) - 2px)',

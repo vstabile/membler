@@ -31,7 +31,7 @@ const defaultTheme = {
 
 const mockThemes: Theme[] = [
 	{
-		id: '1',
+		id: 'a',
 		brandColor: '#ff5e84',
 		buttonTextColor: '#ffffff',
 		headerBgColor: '#F7F9FA',
@@ -43,12 +43,12 @@ const mockThemes: Theme[] = [
 		itemHoverColor: '#012B6B'
 	},
 	{
-		id: '2',
+		id: 'b',
 		brandColor: '#0f144c',
 		buttonTextColor: '#ffffff'
 	},
 	{
-		id: '3',
+		id: 'c',
 		brandColor: '#2b2e33',
 		buttonTextColor: '#ffffff',
 		headerTextColor: '545861',

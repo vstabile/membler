@@ -26,11 +26,11 @@
 	"create-community-text": "You can always change this information later",
 	"name": "Name",
 	"community-url": "Community URL",
-	"default-language": "Default language",
+	"default-locale": "Default language",
 	"sign-in": "Sign In",
 	"get-started": "Get Started",
 	"home-title": "The Nostr community<br>platform for",
-	"home-text": "Build a home for your community, events, and courses — all on Nostr.",
+	"home-text": "Build a home for your community, events, and courses on Nostr.",
 	"developers": "developers",
 	"educators": "educators",
 	"events": "events",
@@ -46,5 +46,21 @@
 	"sign-in-with-key": "Sign In with Key",
 	"or": "or",
 	"og-title": "Membler",
-	"og-description": "The Nostr community platform for developers, educators, events, influencers, and creators."
+	"og-description": "The Nostr community platform for developers, educators, events, influencers, and creators.",
+	"select": "Select",
+	"locales": {
+		"en": "English",
+		"pt": "Portuguese"
+	},
+	"next": "Next",
+	"community-name-placeholder": "Community's Name",
+	"community-subdomain-placeholder": "community-name",
+	"validation": {
+		"community-name-required": "Community name is required.",
+		"subdomain-length": "Subdomain must be at most 63 characters long.",
+		"subdomain-regex": "Only lowercase letters, numbers, and hyphens are allowed.",
+		"subdomain-taken": "This subdomain is already taken.",
+		"subdomain-forbidden": "This subdomain is not allowed.",
+		"community-locale-required": "Community default language is required."
+	}
 }

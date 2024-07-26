@@ -22,15 +22,15 @@
 	"comments": "comentários",
 	"bookmark-post": "Salvar publicação",
 	"report-post": "Reportar publicação",
-	"create-community-title": "Agora vamos criar sua comunidade",
-	"create-community-text": "Não se preocupe — você pode mudar isso mais tarde",
+	"create-community-title": "Vamos criar sua comunidade",
+	"create-community-text": "Você pode mudar isso mais tarde",
 	"name": "Nome",
 	"community-url": "URL da comunidade",
-	"default-language": "Idioma padrão",
+	"default-locale": "Idioma padrão",
 	"sign-in": "Entrar",
 	"get-started": "Vamos Começar",
 	"home-title": "A plataforma de comunidades<br>no Nostr para",
-	"home-text": "Construa um lar para sua comunidade, eventos ou cursos — tudo no Nostr.",
+	"home-text": "Construa um lar para sua comunidade, eventos ou cursos no Nostr.",
 	"developers": "desenvolvedores",
 	"educators": "educadores",
 	"events": "eventos",
@@ -46,5 +46,21 @@
 	"sign-in-with-key": "Entrar com Chave",
 	"or": "ou",
 	"og-title": "Membler",
-	"og-description": "A plataforma de comunidades no Nostr para desenvolvedores, educadores, eventos, influenciadores e criadores."
+	"og-description": "A plataforma de comunidades no Nostr para desenvolvedores, educadores, eventos, influenciadores e criadores.",
+	"select": "Select",
+	"locales": {
+		"en": "Inglês",
+		"pt": "Português"
+	},
+	"next": "Próximo",
+	"community-name-placeholder": "Nome da Comunidade",
+	"community-subdomain-placeholder": "nome-da-comunidade",
+	"validation": {
+		"community-name-required": "O nome da comunidade é obrigatório.",
+		"subdomain-length": "O subdomínio deve ter no máximo 63 caracteres.",
+		"subdomain-regex": "Apenas letras minúsculas, números e hífens são permitidos.",
+		"subdomain-taken": "Este subdomínio já está em uso.",
+		"subdomain-forbidden": "Este subdomínio não é permitido.",
+		"community-locale-required": "O idioma padrão da comunidade é obrigatório."
+	}
 }
