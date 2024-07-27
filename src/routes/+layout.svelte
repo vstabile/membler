@@ -2,7 +2,6 @@
 	import '../app.css';
 	import { onMount } from 'svelte';
 	import ndk from '$lib/stores/ndk';
-	import { atag } from '$lib/stores/community';
 	import signIn from '$lib/sign-in';
 	import { t, loading, locale } from '$lib/i18n';
 	import thumbnail_en from '$lib/assets/thumbnail-en.png';

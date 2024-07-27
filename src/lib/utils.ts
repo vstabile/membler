@@ -2,13 +2,6 @@ import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import { cubicOut } from 'svelte/easing';
 import type { TransitionConfig } from 'svelte/transition';
-import { locale } from '$lib/i18n';
-import { PUBLIC_DOMAIN } from '$env/static/public';
-
-export function changeLocale(newLocale: string) {
-	document.cookie = `locale=${newLocale}; path=/; domain=.${PUBLIC_DOMAIN};`;
-	locale.set(newLocale);
-}
 
 export function cn(...inputs: ClassValue[]) {
 	return twMerge(clsx(inputs));

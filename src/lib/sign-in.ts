@@ -35,7 +35,7 @@ export async function pkSignIn(privateKey?: string) {
 	$ndk.signer = new NDKPrivateKeySigner(privateKey);
 	const user = await $ndk.signer?.blockUntilReady();
 	user.ndk = $ndk;
-	session.set(user, 'pk', privateKey);
+	session.set(user.pubkey, 'pk', privateKey);
 }
 
 export async function nip07SignIn() {
@@ -43,7 +43,7 @@ export async function nip07SignIn() {
 		$ndk.signer = new NDKNip07Signer();
 		const user = await $ndk.signer?.blockUntilReady();
 		user.ndk = $ndk;
-		session.set(user, 'nip07');
+		session.set(user.pubkey, 'nip07');
 	} else {
 		session.clear();
 	}

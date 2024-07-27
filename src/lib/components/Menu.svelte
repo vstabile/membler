@@ -6,6 +6,7 @@
 	import LucideLogOut from '~icons/lucide/log-out';
 	import * as DropdownMenu from '$lib/components/ui/dropdown-menu';
 	import * as Tooltip from '$lib/components/ui/tooltip';
+	import session from '$lib/stores/session';
 	import profile from '$lib/stores/profile';
 	import { signOut } from '$lib/sign-in';
 	import { t } from '$lib/i18n';
@@ -32,34 +33,38 @@
 				<p>{$t('dms')}</p>
 			</Tooltip.Content>
 		</Tooltip.Root>
-		<DropdownMenu.Root>
-			<DropdownMenu.Trigger>
-				<button title="Account" class="flex items-center justify-center">
-					{#if $profile}
-						<img src={$profile.picture} alt={$profile.name} class="h-8 w-8 rounded-md bg-white" />
-					{/if}
-				</button>
-			</DropdownMenu.Trigger>
-			<DropdownMenu.Content class="min-w-52">
-				<DropdownMenu.Group>
-					<DropdownMenu.Label class="mb-1 text-xs font-medium">
-						{$t('account').toUpperCase()}
-					</DropdownMenu.Label>
-					<DropdownMenu.Item class="text-sm">
-						<a href="/account" class="flex w-full">
-							<LucideUser class="mr-2" />
-							{$t('view-profile')}
-						</a>
-					</DropdownMenu.Item>
-					<DropdownMenu.Separator />
-					<DropdownMenu.Item class="text-sm">
-						<a href="/sign-out" class="flex w-full" on:click|preventDefault={signOut}>
-							<LucideLogOut class="mr-2" />
-							{$t('sign-out')}
-						</a>
-					</DropdownMenu.Item>
-				</DropdownMenu.Group>
-			</DropdownMenu.Content>
-		</DropdownMenu.Root>
+		{#if $session.pubkey}
+			<DropdownMenu.Root>
+				<DropdownMenu.Trigger>
+					<button title="Account" class="flex items-center justify-center">
+						{#if $profile}
+							<img src={$profile.picture} alt={$profile.name} class="h-8 w-8 rounded-md bg-white" />
+						{/if}
+					</button>
+				</DropdownMenu.Trigger>
+				<DropdownMenu.Content class="min-w-52">
+					<DropdownMenu.Group>
+						<DropdownMenu.Label class="mb-1 text-xs font-medium">
+							{$t('account').toUpperCase()}
+						</DropdownMenu.Label>
+						<DropdownMenu.Item class="text-sm">
+							<a href="/account" class="flex w-full">
+								<LucideUser class="mr-2" />
+								{$t('view-profile')}
+							</a>
+						</DropdownMenu.Item>
+						<DropdownMenu.Separator />
+						<DropdownMenu.Item class="text-sm">
+							<a href="/sign-out" class="flex w-full" on:click|preventDefault={signOut}>
+								<LucideLogOut class="mr-2" />
+								{$t('sign-out')}
+							</a>
+						</DropdownMenu.Item>
+					</DropdownMenu.Group>
+				</DropdownMenu.Content>
+			</DropdownMenu.Root>
+		{:else}
+			<a href="/sign-in" class="text-sm">{$t('sign-in')}</a>
+		{/if}
 	</div>
 </div>

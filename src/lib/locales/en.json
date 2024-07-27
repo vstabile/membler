@@ -10,6 +10,7 @@
 	"sign-out": "Sign Out",
 	"links": "Links",
 	"community": "Community",
+	"settings": "Settings",
 	"customize-theme": "Customize Theme",
 	"new-post": "New post",
 	"start-post": "Start a post",
@@ -28,14 +29,17 @@
 	"community-url": "Community URL",
 	"default-locale": "Default language",
 	"sign-in": "Sign In",
-	"get-started": "Get Started",
-	"home-title": "The Nostr community<br>platform for",
-	"home-text": "Build a home for your community, events, and courses on Nostr.",
-	"developers": "developers",
-	"educators": "educators",
-	"events": "events",
-	"influencers": "influencers",
-	"creators": "creators",
+	"homepage": {
+		"get-started": "Get Started",
+		"title-line-1": "The Nostr community",
+		"title-line-2": "platform for",
+		"main-text": "Build a home for your community, events, and courses on Nostr.",
+		"developers": "developers",
+		"educators": "educators",
+		"events": "events",
+		"influencers": "influencers",
+		"creators": "creators"
+	},
 	"sign-up-title": "Create your account",
 	"sign-up-text": "Already have a Nostr account?",
 	"click-here": "Click here.",
@@ -62,5 +66,7 @@
 		"subdomain-taken": "This subdomain is already taken.",
 		"subdomain-forbidden": "This subdomain is not allowed.",
 		"community-locale-required": "Community default language is required."
-	}
+	},
+	"template-title": "Pick a community template",
+	"template-text": "Templates include a default set of spaces and can be customized later."
 }

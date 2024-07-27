@@ -6,7 +6,6 @@
 	import NewPost from '$lib/components/NewPost.svelte';
 	import * as Dialog from '$lib/components/ui/dialog/index.js';
 	import * as Drawer from '$lib/components/ui/drawer/index.js';
-	// import communities from '$lib/stores/communities';
 	import community from '$lib/stores/community';
 	import themes from '$lib/stores/themes';
 	import { page } from '$app/stores';
@@ -32,59 +31,56 @@
 	}
 </script>
 
-<Menu />
-<div class="fixed flex h-screen w-full">
-	<div class="h-full w-16 border-r border-r-sidebarBorder bg-sidebarBg p-3">
+<div class="fixed flex h-screen w-full flex-col">
+	<Menu />
+	<div class="flex h-0 w-full flex-grow">
 		<CommunitiesBar />
-	</div>
-	<div class="h-full border-r-sidebarBorder bg-sidebarBg">
 		<Sidebar community={$community} />
-	</div>
-	<div class="h-full w-full border-l">
-		<div class="flex h-16 items-center justify-between border-b px-6">
-			<DropdownMenu.Root>
-				<DropdownMenu.Trigger asChild let:builder>
-					<div class="flex cursor-pointer items-center" use:builder.action {...builder}>
-						<h1 class="text-lg font-semibold">Space {id}</h1>
-						<LucideChevronDown class="ml-2 h-5" />
-					</div>
-				</DropdownMenu.Trigger>
-				<DropdownMenu.Content class="min-w-52">
-					<DropdownMenu.Group>
-						<DropdownMenu.Label class="mb-1 text-xs font-medium">
-							{$t('space').toUpperCase()}
-						</DropdownMenu.Label>
-						<DropdownMenu.Item class="text-sm">
-							<a href="/communities/{id}/s/1/leave" class="flex w-full text-red-600">
-								<LucideLogOut class="mr-2" />
-								{$t('leave-space')}
-							</a>
-						</DropdownMenu.Item>
-						<DropdownMenu.Item class="text-sm">
-							<a href="/communities/{id}/s/1/delete" class="flex w-full text-red-600">
-								<LucideTrash2 class="mr-2" />
-								{$t('delete-space')}
-							</a>
-						</DropdownMenu.Item>
-					</DropdownMenu.Group>
-				</DropdownMenu.Content>
-			</DropdownMenu.Root>
-			<div>
-				<button class="rounded-md bg-brand px-5 text-sm font-semibold leading-8 text-buttonText"
-					>{$t('new-post')}</button
-				>
+		<div class="flex h-full flex-grow flex-col border-l">
+			<div class="flex h-16 flex-none items-center justify-between border-b px-6">
+				<DropdownMenu.Root>
+					<DropdownMenu.Trigger asChild let:builder>
+						<div class="flex cursor-pointer items-center" use:builder.action {...builder}>
+							<h1 class="text-lg font-semibold">Space {id}</h1>
+							<LucideChevronDown class="ml-2 h-5" />
+						</div>
+					</DropdownMenu.Trigger>
+					<DropdownMenu.Content class="min-w-52">
+						<DropdownMenu.Group>
+							<DropdownMenu.Label class="mb-1 text-xs font-medium">
+								{$t('space').toUpperCase()}
+							</DropdownMenu.Label>
+							<DropdownMenu.Item class="text-sm">
+								<a href="/communities/{id}/s/1/leave" class="flex w-full text-red-600">
+									<LucideLogOut class="mr-2" />
+									{$t('leave-space')}
+								</a>
+							</DropdownMenu.Item>
+							<DropdownMenu.Item class="text-sm">
+								<a href="/communities/{id}/s/1/delete" class="flex w-full text-red-600">
+									<LucideTrash2 class="mr-2" />
+									{$t('delete-space')}
+								</a>
+							</DropdownMenu.Item>
+						</DropdownMenu.Group>
+					</DropdownMenu.Content>
+				</DropdownMenu.Root>
+				<div>
+					<button class="rounded-md bg-brand px-5 text-sm font-semibold leading-8 text-buttonText"
+						>{$t('new-post')}</button
+					>
+				</div>
 			</div>
-		</div>
-		<div
-			class="flex h-screen w-full flex-col items-center justify-start overflow-y-scroll bg-gray-100 p-5"
-		>
-			<div class="w-full max-w-2xl">
-				<NewPost />
+			<div class="flex h-full w-full items-center justify-center overflow-y-auto bg-gray-100 p-5">
+				<div class="flex h-full w-full max-w-2xl flex-col">
+					<NewPost />
 
-				<Post />
-				<Post />
-				<Post />
-				<Post />
+					<Post />
+					<Post />
+					<Post />
+					<Post />
+					<br class="h-5" />
+				</div>
 			</div>
 		</div>
 	</div>

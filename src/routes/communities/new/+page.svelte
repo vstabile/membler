@@ -7,7 +7,7 @@
 	import LucideLoader from '~icons/lucide/loader';
 	import session from '$lib/stores/session';
 	import profile from '$lib/stores/profile';
-	import { t, locale } from '$lib/i18n';
+	import { t } from '$lib/i18n';
 	import { goto } from '$app/navigation';
 	import { browser } from '$app/environment';
 	import { zodClient } from 'sveltekit-superforms/adapters';
@@ -24,13 +24,13 @@
 	let loading = false;
 	const encodedPath = encodeURIComponent('/communities/new');
 
-	if (browser && !$session.user) {
+	if (browser && !$session.pubkey) {
 		const previousPath = sessionStorage.getItem('previousPath') || '/';
 		replaceState(previousPath, {});
 		goto(`/sign-in?redirectUrl=${encodedPath}`);
 	}
 
-	$: atag = `34550:${$session.user?.pubkey}:${uuidv4()}`;
+	$: atag = `34550:${$session.pubkey}:${uuidv4()}`;
 	$: name = $profile?.name ? `${$profile.name}'s Community` : '';
 	$: subdomain = $profile?.name
 		? `${$profile.name}-community`
@@ -77,10 +77,10 @@
 		: undefined;
 
 	async function publishEvent(data: any) {
-		const pubkey = $session.user!.pubkey;
+		const pubkey = $session.pubkey!;
 
 		const event = new NDKEvent($ndk, {
-			pubkey: pubkey,
+			pubkey,
 			content: '',
 			created_at: Math.floor(Date.now() / 1000),
 			kind: 34550,
@@ -99,8 +99,8 @@
 </script>
 
 <Onboarding title={$t('create-community-title')} text={$t('create-community-text')}>
-	<form method="POST" use:enhance>
-		<div>
+	<form method="POST" use:enhance class="flex w-full flex-grow flex-col">
+		<div class="flex w-full flex-grow flex-col">
 			<div class="flex w-full flex-col gap-1.5">
 				<Form.Field {form} name="name">
 					<Form.Control let:attrs>
@@ -118,7 +118,7 @@
 					<Form.FieldErrors />
 				</Form.Field>
 			</div>
-			<div class="flex w-full flex-col gap-1.5 pt-6">
+			<div class="flex w-full flex-col gap-1.5 pt-2">
 				<Form.Field {form} name="subdomain">
 					<Form.Control let:attrs>
 						<Form.Label>{$t('community-url')}</Form.Label>
@@ -144,7 +144,7 @@
 					<Form.FieldErrors />
 				</Form.Field>
 			</div>
-			<div class="flex w-full flex-col gap-1.5 pt-6">
+			<div class="flex w-full flex-col gap-1.5 pt-2">
 				<Form.Field {form} name="locale">
 					<Form.Control let:attrs>
 						<Form.Label>{$t('default-locale')}</Form.Label>
@@ -161,8 +161,12 @@
 								<Select.Value placeholder={$t('select')} />
 							</Select.Trigger>
 							<Select.Content>
-								<Select.Item value="en" label="English" on:click={() => locale.set('en')} />
-								<Select.Item value="pt" label="Portuguese" on:click={() => locale.set('pt')} />
+								<Select.Item value="en" label="English" on:click={() => session.setLocale('en')} />
+								<Select.Item
+									value="pt"
+									label="Portuguese"
+									on:click={() => session.setLocale('pt')}
+								/>
 							</Select.Content>
 						</Select.Root>
 						<input hidden bind:value={$formData.locale} name={attrs.name} />
@@ -171,7 +175,7 @@
 				</Form.Field>
 			</div>
 		</div>
-		<div class="mt-10 w-full text-center">
+		<div class="my-6 w-full text-center sm:mb-0">
 			<div class="mx-auto flex w-full justify-end">
 				<input type="hidden" name="atag" value={atag} />
 				<Button type="submit" class="min-w-28 px-6" disabled={loading}>

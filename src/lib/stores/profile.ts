@@ -12,9 +12,9 @@ export type Profile = {
 const profile = derived<[typeof ndk, typeof session], Profile | undefined>(
 	[ndk, session],
 	([$ndk, $session], set, update) => {
-		const pubkey = $session.user?.pubkey;
+		const pubkey = $session.pubkey;
 
-		if (!$ndk || !$session.user || !pubkey) return undefined;
+		if (!$ndk || !pubkey) return undefined;
 
 		set({
 			name: '',

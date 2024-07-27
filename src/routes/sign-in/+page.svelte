@@ -15,10 +15,10 @@
 
 	let redirectUrl = decodeURIComponent($page.url.searchParams.get('redirectUrl') || '');
 
-	$: if ($session.user && redirectUrl) {
+	$: if ($session.pubkey && redirectUrl) {
 		goto(redirectUrl);
-	} else if ($session.user) {
-		goto('/communities/a');
+	} else if ($session.pubkey) {
+		goto('/');
 	}
 
 	const nsecForm = superForm(
@@ -45,11 +45,11 @@
 	title={$t('sign-in-title')}
 	text={`${$t('sign-in-text')} <a href="/sign-up">${$t('click-here')}</a>`}
 >
-	<div class="mt-4 flex justify-center">
+	<div class="mt-2 flex justify-center">
 		<Button class="w-72" on:click={nip07SignIn}>{$t('sign-in-with-extension')}</Button>
 	</div>
 	<p class="mt-6 w-full text-center text-sm text-gray-400">{$t('or')}</p>
-	<div class="mt-6 flex justify-center gap-1.5">
+	<div class="mt-6 flex justify-center">
 		<div class="flex w-72 flex-col">
 			<Input
 				id="nsec"
@@ -61,15 +61,9 @@
 			{#if $nsecData.key && $nsecErrors.key}
 				<p class="mt-1 text-xs text-red-500">{$nsecErrors.key[0]}</p>
 			{/if}
-			<Button on:click={signInWithKey} class="mt-1" disabled={!keyIsValid}>
+			<Button on:click={signInWithKey} class="mt-2" disabled={!keyIsValid}>
 				{$t('sign-in-with-key')}
 			</Button>
 		</div>
 	</div>
 </Onboarding>
-
-<style>
-	:global(body) {
-		background-color: #f3e8ff !important;
-	}
-</style>

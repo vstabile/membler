@@ -1,4 +1,5 @@
 import i18n from 'sveltekit-i18n';
+import session from '$lib/stores/session';
 
 /** @type {import('sveltekit-i18n').Config} */
 const config = {
@@ -17,3 +18,7 @@ const config = {
 };
 
 export const { t, locale, locales, loading, loadTranslations } = new i18n(config);
+
+session.subscribe((s) => {
+	loadTranslations(s.locale);
+});
