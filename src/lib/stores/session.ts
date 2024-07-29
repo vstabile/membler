@@ -1,5 +1,4 @@
 import { PUBLIC_DOMAIN } from '$env/static/public';
-import { NDKUser } from '@nostr-dev-kit/ndk';
 import { writable } from 'svelte/store';
 import { browser } from '$app/environment';
 
@@ -10,13 +9,15 @@ export type Session = {
 	signInMethod: SignInMethod;
 	privateKey: string | undefined;
 	locale: string;
+	consent: boolean | undefined;
 };
 
 const emptySession: Session = {
 	pubkey: null,
 	signInMethod: null,
 	privateKey: undefined,
-	locale: 'en'
+	locale: 'en',
+	consent: undefined
 };
 
 const restoreSession = () => {
@@ -39,20 +40,11 @@ function createSessionStore() {
 				return { ...session, pubkey, signInMethod, privateKey };
 			});
 		},
-
 		setLocale: (newLocale: string) => {
 			update((session) => ({ ...session, locale: newLocale }));
 		},
-		fromFragment(token: string) {
-			const decodedToken = decodeURIComponent(token);
-			const sessionObject = JSON.parse(decodedToken);
-			update((session) => {
-				return {
-					...session,
-					signInMethod: sessionObject.signInMethod,
-					privateKey: sessionObject.privateKey
-				};
-			});
+		setConsent: (consent: boolean) => {
+			update((session) => ({ ...session, consent: consent }));
 		},
 		clear: () => set(emptySession)
 	};

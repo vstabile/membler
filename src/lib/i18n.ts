@@ -1,8 +1,9 @@
-import i18n from 'sveltekit-i18n';
+import i18n, { type Config } from 'sveltekit-i18n';
 import session from '$lib/stores/session';
 
 /** @type {import('sveltekit-i18n').Config} */
-const config = {
+const config: Config<{ value?: number }, {}> = {
+	initLocale: 'en',
 	loaders: [
 		{
 			locale: 'en',

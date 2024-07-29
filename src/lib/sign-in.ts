@@ -52,6 +52,4 @@ export async function nip07SignIn() {
 export function signOut(): void {
 	$ndk.signer = undefined;
 	session.clear();
-
-	goto('/');
 }

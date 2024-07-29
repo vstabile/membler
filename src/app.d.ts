@@ -5,6 +5,7 @@ declare global {
 		// interface Error {}
 		interface Locals {
 			atag: string;
+			subdomain: string;
 		}
 		// interface PageData {}
 		// interface PageState {}

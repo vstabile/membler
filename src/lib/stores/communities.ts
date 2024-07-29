@@ -1,11 +1,15 @@
-import { writable } from 'svelte/store';
+import { derived, writable } from 'svelte/store';
+import ndk from '$lib/stores/ndk';
+import session from '$lib/stores/session';
+import type { NDKEvent, NDKFilter } from '@nostr-dev-kit/ndk';
+import { COMMUNITY_EVENT_KIND, COMMUNITIES_LIST_EVENT_KIND } from '$lib/constants';
 
 type Community = {
 	id: string;
 	name: string;
 	icon?: string;
 	logo?: string;
-	subdomain: string;
+	subdomain?: string;
 };
 
 const mockCommunities: Community[] = [
@@ -30,6 +34,89 @@ const mockCommunities: Community[] = [
 	}
 ];
 
-const communities = writable(mockCommunities);
+export const communitiesList = derived<[typeof ndk, typeof session], string[]>(
+	[ndk, session],
+	([$ndk, $session], set, update) => {
+		if (!$session?.pubkey) return;
+
+		const pubkey = $session.pubkey;
+
+		const filters: NDKFilter = { kinds: [COMMUNITIES_LIST_EVENT_KIND], authors: [pubkey] };
+
+		const subscription = $ndk.subscribe(filters, {
+			closeOnEose: false,
+			subId: `communities-list`
+		});
+
+		const mostRecentEvents: Map<string, NDKEvent> = new Map();
+
+		subscription.on('event', (event: NDKEvent) => {
+			const dedupKey = event.deduplicationKey();
+			const existingEvent = mostRecentEvents.get(dedupKey);
+			if (existingEvent && event.created_at! < existingEvent.created_at!) {
+				return;
+			}
+
+			mostRecentEvents.set(dedupKey, event);
+
+			const list = event.tags.filter((t) => t[0] === 'a').map((t) => t[1]);
+
+			set(list);
+		});
+	},
+	[]
+);
+
+const communities = derived<[typeof ndk, typeof communitiesList], Community[]>(
+	[ndk, communitiesList],
+	([$ndk, $communitiesList], set, update) => {
+		if ($communitiesList.length === 0) return;
+
+		const filters: NDKFilter[] = Array.from($communitiesList).map((m: string) => ({
+			kinds: [COMMUNITY_EVENT_KIND as number],
+			authors: [m.split(':')[1]],
+			'#d': [m.split(':')[2]]
+		}));
+
+		const subscription = $ndk.subscribe(filters, {
+			closeOnEose: false,
+			subId: `memberships`
+		});
+
+		const mostRecentEvents: Map<string, NDKEvent> = new Map();
+
+		subscription.on('event', (event) => {
+			const dedupKey = event.deduplicationKey();
+			const existingEvent = mostRecentEvents.get(dedupKey);
+			if (existingEvent && event.created_at! < existingEvent.created_at!) {
+				return;
+			}
+
+			mostRecentEvents.set(dedupKey, event);
+
+			const community = {
+				id: event.tagValue('d'),
+				name: event.tagValue('name'),
+				icon: event.tagValue('icon'),
+				logo: event.tagValue('logo'),
+				subdomain: event.tagValue('membler')
+			};
+
+			update((communities) => {
+				const existingCommunityIndex = communities.findIndex((c) => c.id === community.id);
+				if (existingCommunityIndex > -1) {
+					communities[existingCommunityIndex] = community;
+				} else {
+					communities.push(community);
+				}
+
+				communities.sort((a, b) => a.name.localeCompare(b.name));
+
+				return communities;
+			});
+		});
+	},
+	[]
+);
 
 export default communities;

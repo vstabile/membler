@@ -1,6 +1,7 @@
 import { derived, writable } from 'svelte/store';
 import ndk from '$lib/stores/ndk';
 import type { NDKEvent, NDKFilter } from '@nostr-dev-kit/ndk';
+import { nip19 } from 'nostr-tools';
 
 export type Community = {
 	id: string;
@@ -9,6 +10,8 @@ export type Community = {
 	logo?: string;
 	subdomain: string;
 	locale: string;
+	atag: string;
+	naddr: string;
 	moderators: string[];
 };
 
@@ -17,7 +20,7 @@ export const atag = writable<string | null>(null);
 const community = derived<[typeof ndk, typeof atag], Community>(
 	[ndk, atag],
 	([$ndk, $atag], set, update) => {
-		if ($atag === null) return;
+		if (!$atag) return;
 
 		const atagParts = $atag.split(':');
 		const kind = parseInt(atagParts[0]);
@@ -44,7 +47,14 @@ const community = derived<[typeof ndk, typeof atag], Community>(
 
 			const moderators = event
 				.getMatchingTags('p')
-				.filter((t: string[]) => t[t.length - 1] === 'moderator');
+				.filter((t: string[]) => t[t.length - 1] === 'moderator')
+				.map((t: string[]) => t[1]);
+
+			const naddr = nip19.naddrEncode({
+				kind: event.kind,
+				pubkey: event.pubkey,
+				identifier: event.tagValue('d')
+			});
 
 			const community = {
 				id: dtag,
@@ -53,6 +63,8 @@ const community = derived<[typeof ndk, typeof atag], Community>(
 				logo: event.tagValue('logo'),
 				subdomain: event.tagValue('membler'),
 				locale: event.tagValue('locale'),
+				atag: $atag,
+				naddr,
 				moderators
 			};
 

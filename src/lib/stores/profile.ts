@@ -14,7 +14,7 @@ const profile = derived<[typeof ndk, typeof session], Profile | undefined>(
 	([$ndk, $session], set, update) => {
 		const pubkey = $session.pubkey;
 
-		if (!$ndk || !pubkey) return undefined;
+		if (!$ndk || !pubkey) return;
 
 		set({
 			name: '',

@@ -19,7 +19,10 @@ export async function handle({ event, resolve }) {
 		}
 
 		if (atag) {
-			event.locals.atag = atag as string;
+			event.locals = {
+				atag: atag as string,
+				subdomain: subdomain as string
+			};
 		} else {
 			error(404, {
 				message: 'Community not found'

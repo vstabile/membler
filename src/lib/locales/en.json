@@ -1,7 +1,12 @@
 {
 	"home": "Home",
 	"members": "Members",
+	"manage": "Manage",
 	"search": "Search",
+	"start-discussion": "Start a discussion",
+	"create-first-post": "Create the first post",
+	"and": "and",
+	"invite-some-members": "Invite some members",
 	"create-new-community": "Create a new community",
 	"notifications": "Notifications",
 	"dms": "DMs",
@@ -9,15 +14,20 @@
 	"view-profile": "View Profile",
 	"sign-out": "Sign Out",
 	"links": "Links",
+	"add-link": "Add Link",
+	"create-link": "Create Link",
+	"link-title": "Link Title",
+	"link-url": "Link URL",
 	"community": "Community",
 	"settings": "Settings",
 	"customize-theme": "Customize Theme",
 	"new-post": "New post",
 	"start-post": "Start a post",
-	"space": "Space",
-	"add-space": "Add Space",
-	"leave-space": "Leave space",
-	"delete-space": "Delete space",
+	"channels": "Channels",
+	"channel": "Channel",
+	"add-channel": "Add channel",
+	"leave-channel": "Leave channel",
+	"delete-channel": "Delete channel",
 	"like": "Like",
 	"comment": "Comment",
 	"comments": "comments",
@@ -39,6 +49,18 @@
 		"events": "events",
 		"influencers": "influencers",
 		"creators": "creators"
+	},
+	"onboarding": {
+		"template-title": "Set up some initial channels for your community",
+		"template-text": "You can add, remove and customize all channels later.",
+		"finish": "Finish",
+		"skip": "Skip"
+	},
+	"templates": {
+		"get-started": "Get Started",
+		"start-here": "Start Here",
+		"introduce-yourself": "Introduce Yourself",
+		"resources": "Resources"
 	},
 	"sign-up-title": "Create your account",
 	"sign-up-text": "Already have a Nostr account?",
@@ -65,8 +87,14 @@
 		"subdomain-regex": "Only lowercase letters, numbers, and hyphens are allowed.",
 		"subdomain-taken": "This subdomain is already taken.",
 		"subdomain-forbidden": "This subdomain is not allowed.",
-		"community-locale-required": "Community default language is required."
+		"community-locale-required": "Community default language is required.",
+		"link-url-invalid": "This URL is not valid",
+		"link-title-short": "Title must be at least 2 characters long.",
+		"link-title-long": "Title must be at most 20 characters long."
 	},
-	"template-title": "Pick a community template",
-	"template-text": "Templates include a default set of spaces and can be customized later."
+	"errors": {
+		"naddr-invalid": "Community naddr is invalid",
+		"not-moderator": "You are not a moderator of this community"
+	},
+	"analytics-consent": "Can we collect anonymous usage data to learn how to improve the app?"
 }

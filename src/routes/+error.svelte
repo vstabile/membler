@@ -1,0 +1,87 @@
+<script lang="ts">
+	import { page } from '$app/stores';
+
+	let message = $page.error?.message;
+</script>
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<title>{message ? message : $page.status}</title>
+
+		<style>
+			body {
+				--bg: #ead6ff;
+				--fg: #591c87;
+				--divider: #591c87;
+				background: var(--bg);
+				color: var(--fg);
+				font-family:
+					system-ui,
+					-apple-system,
+					BlinkMacSystemFont,
+					'Segoe UI',
+					Roboto,
+					Oxygen,
+					Ubuntu,
+					Cantarell,
+					'Open Sans',
+					'Helvetica Neue',
+					sans-serif;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				height: 100vh;
+				margin: 0;
+			}
+
+			.error {
+				display: flex;
+				align-items: center;
+				max-width: 32rem;
+				margin: 0 1rem;
+			}
+
+			.status {
+				font-weight: 200;
+				font-size: 3rem;
+				line-height: 1;
+				position: relative;
+				top: -0.05rem;
+			}
+
+			.message {
+				border-left: 1px solid var(--divider);
+				padding: 0 0 0 1rem;
+				margin: 0 0 0 1rem;
+				min-height: 2.5rem;
+				display: flex;
+				align-items: center;
+			}
+
+			.message h1 {
+				font-weight: 400;
+				font-size: 1em;
+				margin: 0;
+			}
+
+			@media (prefers-color-scheme: dark) {
+				body {
+					--bg: #591c87;
+					--fg: #ddd;
+					--divider: #666;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<div class="error">
+			<span class="status">{$page.status}</span>
+			{#if message}
+				<div class="message">
+					<h1>{message}</h1>
+				</div>
+			{/if}
+		</div>
+	</body>
+</html>

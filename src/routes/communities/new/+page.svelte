@@ -14,14 +14,28 @@
 	import { formSchema, type FormSchema } from './schema';
 	import { type Infer, type SuperValidated, superForm } from 'sveltekit-superforms';
 	import { v4 as uuidv4 } from 'uuid';
+	import { uuidToBase64 } from '$lib/utils';
 	import ndk from '$lib/stores/ndk';
 	import { NDKEvent } from '@nostr-dev-kit/ndk';
 	import { replaceState } from '$app/navigation';
-	import { PUBLIC_DOMAIN, PUBLIC_PORT, PUBLIC_PROTOCOL } from '$env/static/public';
+	import {
+		COMMUNITIES_LIST_EVENT_KIND,
+		COMMUNITY_EVENT_KIND,
+		MEMBERS_SET_EVENT_KIND
+	} from '$lib/constants';
+	import { communitiesList } from '$lib/stores/communities';
+	import {
+		PUBLIC_DOMAIN,
+		PUBLIC_PORT,
+		PUBLIC_PROTOCOL,
+		PUBLIC_APP_PUBKEY,
+		PUBLIC_APP_RELAY,
+		PUBLIC_NIP89_IDENTIFIER
+	} from '$env/static/public';
 
 	export let data: { form: SuperValidated<Infer<FormSchema>> };
 
-	let loading = false;
+	let publishing = false;
 	const encodedPath = encodeURIComponent('/communities/new');
 
 	if (browser && !$session.pubkey) {
@@ -30,7 +44,8 @@
 		goto(`/sign-in?redirectUrl=${encodedPath}`);
 	}
 
-	$: atag = `34550:${$session.pubkey}:${uuidv4()}`;
+	const dtag = uuidToBase64(uuidv4());
+	$: atag = `${COMMUNITY_EVENT_KIND}:${$session.pubkey}:${dtag}`;
 	$: name = $profile?.name ? `${$profile.name}'s Community` : '';
 	$: subdomain = $profile?.name
 		? `${$profile.name}-community`
@@ -43,16 +58,16 @@
 		validators: zodClient(formSchema),
 		resetForm: false,
 		onSubmit: () => {
-			loading = true;
+			publishing = true;
 		},
 		onResult: ({ result }) => {
 			if (result.type !== 'success') {
-				loading = false;
+				publishing = false;
 				return;
 			}
 			const data = result.data!.form.data;
 			const timeout = new Promise((resolve) => setTimeout(resolve, 400));
-			Promise.all([publishEvent(data), timeout]).then(() => {
+			Promise.all([publishEvents(data), timeout]).then(() => {
 				window.location.href = `${PUBLIC_PROTOCOL}://${data.subdomain}.${PUBLIC_DOMAIN}:${PUBLIC_PORT}`;
 			});
 		}
@@ -60,7 +75,12 @@
 
 	const { form: formData, enhance } = form;
 
-	$: if ($profile && $formData.name === '' && $formData.subdomain === '') {
+	$: if (
+		$profile &&
+		$formData.name === '' &&
+		$formData.subdomain === '' &&
+		$formData.locale === 'en'
+	) {
 		$formData = {
 			name: name,
 			subdomain: subdomain,
@@ -76,25 +96,53 @@
 			}
 		: undefined;
 
-	async function publishEvent(data: any) {
+	async function publishEvents(data: any) {
 		const pubkey = $session.pubkey!;
+		const dtag = data.atag.split(':')[2];
 
-		const event = new NDKEvent($ndk, {
+		const communityEvent = new NDKEvent($ndk, {
 			pubkey,
 			content: '',
 			created_at: Math.floor(Date.now() / 1000),
-			kind: 34550,
+			kind: COMMUNITY_EVENT_KIND,
 			tags: [
-				['d', data.atag.split(':')[2]],
+				['d', dtag],
 				['name', data.name],
 				['membler', data.subdomain],
 				['locale', data.locale],
-				['p', pubkey, 'wss://relay.membler.club', 'moderator'],
-				['relay', 'wss://relay.membler.club']
+				['p', pubkey, PUBLIC_APP_RELAY, 'moderator'],
+				['alt', data.name],
+				[
+					'client',
+					'Membler',
+					`31990:${PUBLIC_APP_PUBKEY}:${PUBLIC_NIP89_IDENTIFIER}`,
+					PUBLIC_APP_RELAY
+				],
+				['relay', PUBLIC_APP_RELAY]
 			]
 		});
 
-		return event.publish();
+		const listEvent = new NDKEvent($ndk, {
+			pubkey,
+			content: '',
+			created_at: Math.floor(Date.now() / 1000),
+			kind: COMMUNITIES_LIST_EVENT_KIND,
+			tags: [...$communitiesList, data.atag].map((atag) => ['a', atag])
+		});
+
+		const membersEvent = new NDKEvent($ndk, {
+			pubkey,
+			content: '',
+			created_at: Math.floor(Date.now() / 1000),
+			kind: MEMBERS_SET_EVENT_KIND,
+			tags: [
+				['d', dtag],
+				['a', data.atag],
+				['p', pubkey]
+			]
+		});
+
+		return Promise.all([communityEvent.publish(), listEvent.publish(), membersEvent.publish()]);
 	}
 </script>
 
@@ -112,7 +160,7 @@
 							placeholder={$t('community-name-placeholder')}
 							autocomplete="off"
 							bind:value={$formData.name}
-							disabled={loading}
+							disabled={publishing}
 						/>
 					</Form.Control>
 					<Form.FieldErrors />
@@ -132,7 +180,7 @@
 								class="rounded-r-none"
 								autocomplete="off"
 								bind:value={$formData.subdomain}
-								disabled={loading}
+								disabled={publishing}
 							/>
 							<div
 								class="flex h-10 items-center justify-center rounded-r-md border-[1px] border-l-0 border-gray-200 bg-white px-4 text-sm text-gray-500"
@@ -155,7 +203,7 @@
 									$formData.locale = v.value;
 								}
 							}}
-							disabled={loading}
+							disabled={publishing}
 						>
 							<Select.Trigger {...attrs}>
 								<Select.Value placeholder={$t('select')} />
@@ -178,9 +226,11 @@
 		<div class="my-6 w-full text-center sm:mb-0">
 			<div class="mx-auto flex w-full justify-end">
 				<input type="hidden" name="atag" value={atag} />
-				<Button type="submit" class="min-w-28 px-6" disabled={loading}>
-					<span class:hidden={!loading} class="animate-spin"><LucideLoader /></span>
-					<span class:hidden={loading}>{$t('next')}</span>
+				<Button type="submit" class="min-w-28 px-6" disabled={publishing}>
+					<span class:hidden={!publishing} class="animate-spin">
+						<LucideLoader class="h-5 w-5" />
+					</span>
+					<span class:hidden={publishing}>{$t('next')}</span>
 				</Button>
 			</div>
 		</div>

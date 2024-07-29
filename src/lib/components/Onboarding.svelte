@@ -6,6 +6,16 @@
 	export let text: string;
 	let originalBackgroundColor: string;
 
+	function innerHtml(node: any, html: string) {
+		node.innerHTML = html;
+
+		return {
+			update(html: string) {
+				node.innerHTML = html;
+			}
+		};
+	}
+
 	onMount(() => {
 		if (typeof window !== 'undefined') {
 			originalBackgroundColor = document.body.style.backgroundColor;
@@ -30,7 +40,7 @@
 				{title}
 			</h1>
 			<p class="text-light mt-3 text-center text-sm text-gray-600">
-				{@html text}
+				<span use:innerHtml={text} />
 			</p>
 			<div class="mt-8 flex h-full w-full flex-grow flex-col">
 				<slot></slot>

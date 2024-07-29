@@ -1,7 +1,12 @@
 {
-	"home": "Home",
+	"home": "Início",
 	"members": "Membros",
+	"manage": "Gerenciar",
 	"search": "Buscar",
+	"start-discussion": "Iniciar uma discussão",
+	"create-first-post": "Criar a primeira publicação",
+	"and": "e",
+	"invite-some-members": "convidar alguns membros",
 	"create-new-community": "Criar uma nova comunidade",
 	"notifications": "Notificações",
 	"dms": "DMs",
@@ -9,15 +14,20 @@
 	"view-profile": "Ver Perfil",
 	"sign-out": "Sair",
 	"links": "Links",
+	"add-link": "Adicionar Link",
+	"create-link": "Criar Link",
+	"link-title": "Título do Link",
+	"link-url": "URL do Link",
 	"community": "Comunidade",
 	"settings": "Configurações",
 	"customize-theme": "Personalizar Tema",
 	"new-post": "Nova publicação",
 	"start-post": "Começar uma publicação",
-	"space": "Espaço",
-	"add-space": "Adicionar Espaço",
-	"leave-space": "Sair do espaço",
-	"delete-space": "Excluir espaço",
+	"channels": "Canais",
+	"channel": "Canal",
+	"add-channel": "Adicionar canal",
+	"leave-channel": "Sair do canal",
+	"delete-channel": "Excluir canal",
 	"like": "Curtir",
 	"comment": "Comentar",
 	"comments": "comentários",
@@ -39,6 +49,18 @@
 		"events": "eventos",
 		"influencers": "influencers",
 		"creators": "criadores"
+	},
+	"onboarding": {
+		"template-title": "Escolha os canais iniciais para a sua comunidade",
+		"template-text": "Você pode adicionar, remover e personalizar todos os canais mais tarde.",
+		"finish": "Finalizar",
+		"skip": "Pular"
+	},
+	"templates": {
+		"get-started": "Vamos Começar",
+		"start-here": "Comece Aqui",
+		"introduce-yourself": "Se Apresente",
+		"resources": "Materiais"
 	},
 	"sign-up-title": "Crie a sua conta",
 	"sign-up-text": "Você já tem uma conta no Nostr?",
@@ -65,6 +87,14 @@
 		"subdomain-regex": "Apenas letras minúsculas, números e hífens são permitidos.",
 		"subdomain-taken": "Este subdomínio já está em uso.",
 		"subdomain-forbidden": "Este subdomínio não é permitido.",
-		"community-locale-required": "O idioma padrão da comunidade é obrigatório."
-	}
+		"community-locale-required": "O idioma padrão da comunidade é obrigatório.",
+		"link-url-invalid": "Essa URL não é válida",
+		"link-title-short": "Título do link precisa ter pelo menos 2 caracteres",
+		"link-title-long": "Título do link pode ter no máximo 20 caracteres"
+	},
+	"errors": {
+		"naddr-invalid": "O naddr da comunidade é inválido.",
+		"not-moderator": "Você não é moderador desta comunidade."
+	},
+	"analytics-consent": "Podemos coletar dados de uso anônimos para melhorar o app?"
 }

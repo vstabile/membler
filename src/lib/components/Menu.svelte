@@ -8,8 +8,11 @@
 	import * as Tooltip from '$lib/components/ui/tooltip';
 	import session from '$lib/stores/session';
 	import profile from '$lib/stores/profile';
+	import { page } from '$app/stores';
 	import { signOut } from '$lib/sign-in';
 	import { t } from '$lib/i18n';
+
+	$: redirectUrl = encodeURIComponent($page.url.toString());
 </script>
 
 <div class="flex w-full items-center justify-between border-b bg-headerBg px-6 py-2">
@@ -64,7 +67,7 @@
 				</DropdownMenu.Content>
 			</DropdownMenu.Root>
 		{:else}
-			<a href="/sign-in" class="text-sm">{$t('sign-in')}</a>
+			<a href="/sign-in?redirectUrl={redirectUrl}" class="text-sm">{$t('sign-in')}</a>
 		{/if}
 	</div>
 </div>

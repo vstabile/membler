@@ -1,8 +1,9 @@
 import { z } from 'zod';
+import { COMMUNITY_EVENT_KIND } from '$lib/constants';
 import { PUBLIC_RESERVED_SUBDOMAINS } from '$env/static/public';
 
 const SUBDOMAIN_REGEX = /^[a-z0-9](?:[a-z0-9\-]{0,61}[a-z0-9])?$/;
-const ATAG_REGEX = /^34550:[a-f0-9]{64}:[^:]+$/;
+const ATAG_REGEX = new RegExp(`^${COMMUNITY_EVENT_KIND}:[a-f0-9]{64}:[^:]+$`);
 const FORBIDDEN_SUBDOMAINS = PUBLIC_RESERVED_SUBDOMAINS.split(',');
 
 export const formSchema = z.object({

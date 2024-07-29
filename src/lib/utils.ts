@@ -3,6 +3,13 @@ import { twMerge } from 'tailwind-merge';
 import { cubicOut } from 'svelte/easing';
 import type { TransitionConfig } from 'svelte/transition';
 
+export function uuidToBase64(uuid: string) {
+	const cleanUuid = uuid.replace(/-/g, '');
+	const bytes = new Uint8Array(cleanUuid.match(/.{1,2}/g)!.map((byte) => parseInt(byte, 16)));
+	const base64Encoded = btoa(String.fromCharCode(...bytes));
+	return base64Encoded.replace(/=/g, '');
+}
+
 export function cn(...inputs: ClassValue[]) {
 	return twMerge(clsx(inputs));
 }

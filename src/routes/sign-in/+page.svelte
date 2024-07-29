@@ -41,10 +41,7 @@
 	}
 </script>
 
-<Onboarding
-	title={$t('sign-in-title')}
-	text={`${$t('sign-in-text')} <a href="/sign-up">${$t('click-here')}</a>`}
->
+<Onboarding title={$t('sign-in-title')} text={`${$t('sign-in-text')}`}>
 	<div class="mt-2 flex justify-center">
 		<Button class="w-72" on:click={nip07SignIn}>{$t('sign-in-with-extension')}</Button>
 	</div>

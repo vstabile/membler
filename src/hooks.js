@@ -10,6 +10,6 @@ export function reroute({ url }) {
 		!PUBLIC_RESERVED_SUBDOMAINS.split(',').includes(subdomain) &&
 		!SHARED_PATHS.includes(url.pathname)
 	) {
-		return `/communities/${subdomain}${url.pathname}`;
+		return `/${subdomain}${url.pathname}`;
 	}
 }
