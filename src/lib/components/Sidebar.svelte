@@ -11,6 +11,8 @@
 	import channels from '$lib/stores/channels';
 	import isModerator from '$lib/stores/isModerator';
 	import LinkList from './LinkList.svelte';
+	import { PUBLIC_DOMAIN, PUBLIC_PORT, PUBLIC_PROTOCOL } from '$env/static/public';
+	import AccountButton from './AccountButton.svelte';
 
 	export let community: Community | undefined;
 	export let subdomain: string | undefined;
@@ -18,7 +20,9 @@
 	$: communitySlug = subdomain ? '' : community?.naddr + '/';
 </script>
 
-<div class="flex h-full w-72 flex-col border-r-sidebarBorder bg-sidebarBg text-sidebarText">
+<div
+	class="flex h-full w-72 flex-none flex-col border-r border-r-sidebarBorder bg-sidebarBg text-sidebarText max-lg:fixed"
+>
 	<DropdownMenu.Root>
 		<DropdownMenu.Trigger asChild let:builder>
 			<div
@@ -61,7 +65,7 @@
 			</DropdownMenu.Content>
 		{/if}
 	</DropdownMenu.Root>
-	<div class="flex flex-col overflow-y-auto">
+	<div class="flex h-full flex-col overflow-y-auto pb-24 lg:pb-11">
 		<div class="flex w-full flex-col p-3 text-sm">
 			<a href="/{communitySlug}" class="flex items-center rounded-md p-2 hover:bg-itemHover">
 				<LucideHome class="mr-2 h-4 w-4" />
@@ -87,5 +91,16 @@
 			</div>
 		{/each}
 		<LinkList />
+	</div>
+	<div
+		class="fixed bottom-0 w-[inherit] border-r border-t border-sidebarBorder bg-sidebarBg text-xs text-sidebarText"
+	>
+		<div class="flex border-b p-3 text-sm lg:hidden">
+			<AccountButton name={true} />
+		</div>
+		<div class="flex p-3 opacity-50">
+			{$t('powered-by')}
+			<a class="ml-1" href={`${PUBLIC_PROTOCOL}://www.${PUBLIC_DOMAIN}:${PUBLIC_PORT}`}>Membler</a>
+		</div>
 	</div>
 </div>

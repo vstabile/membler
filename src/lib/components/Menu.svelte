@@ -2,72 +2,56 @@
 	import Searchbar from './Searchbar.svelte';
 	import LucideBell from '~icons/lucide/bell';
 	import LucideMessageCircle from '~icons/lucide/message-circle';
-	import LucideUser from '~icons/lucide/user';
-	import LucideLogOut from '~icons/lucide/log-out';
-	import * as DropdownMenu from '$lib/components/ui/dropdown-menu';
+	import LucideMenu from '~icons/lucide/menu';
 	import * as Tooltip from '$lib/components/ui/tooltip';
-	import session from '$lib/stores/session';
-	import profile from '$lib/stores/profile';
+	import community from '$lib/stores/community';
+	import menuOpen from '$lib/stores/menuOpen';
 	import { page } from '$app/stores';
-	import { signOut } from '$lib/sign-in';
 	import { t } from '$lib/i18n';
-
-	$: redirectUrl = encodeURIComponent($page.url.toString());
+	import Skeleton from './ui/skeleton/skeleton.svelte';
+	import AccountButton from './AccountButton.svelte';
 </script>
 
-<div class="flex w-full items-center justify-between border-b bg-headerBg px-6 py-2">
+<div
+	class="flex w-full items-center justify-between border-b bg-headerBg px-6 py-2 max-lg:h-16"
+	class:menu-open={menuOpen}
+>
+	<button class="flex lg:hidden" on:click={() => ($menuOpen = !$menuOpen)}>
+		<LucideMenu class="h-6 w-6" />
+	</button>
 	<div class="flex flex-grow justify-center">
 		<Searchbar />
+		<div class="lg:hidden">
+			{#if $community === undefined}
+				<Skeleton class="h-6 w-44 rounded bg-sidebarText" />
+			{:else if $community.logo}
+				<img src={$community.logo} alt={$community.name} class="max-h-6" />
+			{:else}
+				<div class=" text-lg font-semibold">
+					{$community.name}
+				</div>
+			{/if}
+		</div>
 	</div>
 	<div class="flex space-x-2">
-		<Tooltip.Root>
-			<Tooltip.Trigger asChild let:builder>
-				<button class="pr-2" use:builder.action {...builder}><LucideBell /></button>
-			</Tooltip.Trigger>
-			<Tooltip.Content side="bottom">
-				<p>{$t('notifications')}</p>
-			</Tooltip.Content>
-		</Tooltip.Root>
-		<Tooltip.Root>
-			<Tooltip.Trigger asChild let:builder>
-				<button class="pr-2" use:builder.action {...builder}><LucideMessageCircle /></button>
-			</Tooltip.Trigger>
-			<Tooltip.Content side="bottom">
-				<p>{$t('dms')}</p>
-			</Tooltip.Content>
-		</Tooltip.Root>
-		{#if $session.pubkey}
-			<DropdownMenu.Root>
-				<DropdownMenu.Trigger>
-					<button title="Account" class="flex items-center justify-center">
-						{#if $profile}
-							<img src={$profile.picture} alt={$profile.name} class="h-8 w-8 rounded-md bg-white" />
-						{/if}
-					</button>
-				</DropdownMenu.Trigger>
-				<DropdownMenu.Content class="min-w-52">
-					<DropdownMenu.Group>
-						<DropdownMenu.Label class="mb-1 text-xs font-medium">
-							{$t('account').toUpperCase()}
-						</DropdownMenu.Label>
-						<DropdownMenu.Item class="text-sm">
-							<a href="/account" class="flex w-full">
-								<LucideUser class="mr-2" />
-								{$t('view-profile')}
-							</a>
-						</DropdownMenu.Item>
-						<DropdownMenu.Separator />
-						<DropdownMenu.Item class="text-sm">
-							<a href="/sign-out" class="flex w-full" on:click|preventDefault={signOut}>
-								<LucideLogOut class="mr-2" />
-								{$t('sign-out')}
-							</a>
-						</DropdownMenu.Item>
-					</DropdownMenu.Group>
-				</DropdownMenu.Content>
-			</DropdownMenu.Root>
-		{:else}
-			<a href="/sign-in?redirectUrl={redirectUrl}" class="text-sm">{$t('sign-in')}</a>
-		{/if}
+		<div class="flex max-lg:hidden">
+			<Tooltip.Root>
+				<Tooltip.Trigger asChild let:builder>
+					<button class="pr-2" use:builder.action {...builder}><LucideBell /></button>
+				</Tooltip.Trigger>
+				<Tooltip.Content side="bottom">
+					<p>{$t('notifications')}</p>
+				</Tooltip.Content>
+			</Tooltip.Root>
+			<Tooltip.Root>
+				<Tooltip.Trigger asChild let:builder>
+					<button class="pr-2" use:builder.action {...builder}><LucideMessageCircle /></button>
+				</Tooltip.Trigger>
+				<Tooltip.Content side="bottom">
+					<p>{$t('dms')}</p>
+				</Tooltip.Content>
+			</Tooltip.Root>
+		</div>
+		<AccountButton />
 	</div>
 </div>

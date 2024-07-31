@@ -5,6 +5,7 @@
 	"search": "Search",
 	"edit": "Edit",
 	"remove": "Remove",
+	"powered-by": "Powered by",
 	"start-discussion": "Start a discussion",
 	"create-first-post": "Create the first post",
 	"and": "and",
@@ -99,5 +100,7 @@
 		"naddr-invalid": "Community naddr is invalid",
 		"not-moderator": "You are not a moderator of this community"
 	},
-	"analytics-consent": "Can we collect anonymous usage data to learn how to improve the app?"
+	"analytics-consent": "Can we collect anonymous usage data to learn how to improve the app?",
+	"no": "No",
+	"yes": "Yes"
 }

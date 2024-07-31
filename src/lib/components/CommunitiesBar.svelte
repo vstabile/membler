@@ -9,7 +9,9 @@
 	$: id = $page.params.id;
 </script>
 
-<div class="flex h-full flex-col overflow-y-auto border-r border-r-sidebarBorder bg-sidebarBg p-3">
+<div
+	class="flex h-full flex-col overflow-y-auto border-r border-r-sidebarBorder bg-sidebarBg p-3 max-lg:hidden"
+>
 	{#each $communities as community}
 		<div
 			class="mb-3 flex items-center justify-center rounded-lg text-sidebarText"

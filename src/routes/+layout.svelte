@@ -29,11 +29,11 @@
 				toast($t('analytics-consent'), {
 					duration: 60 * 1000,
 					cancel: {
-						label: 'No',
+						label: $t('no'),
 						onClick: () => session.setConsent(false)
 					},
 					action: {
-						label: 'Yes',
+						label: $t('yes'),
 						onClick: () => session.setConsent(true)
 					}
 				});

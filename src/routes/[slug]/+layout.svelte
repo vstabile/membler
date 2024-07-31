@@ -4,6 +4,7 @@
 	import Sidebar from '$lib/components/Sidebar.svelte';
 	import community from '$lib/stores/community';
 	import themes from '$lib/stores/themes';
+	import menuOpen from '$lib/stores/menuOpen';
 	import { page } from '$app/stores';
 	import { atag } from '$lib/stores/community';
 	import { browser } from '$app/environment';
@@ -19,11 +20,22 @@
 		window.location.href = `${PUBLIC_PROTOCOL}://www.${PUBLIC_DOMAIN}:${PUBLIC_PORT}`;
 </script>
 
-<div class="fixed flex h-screen w-full flex-col">
-	<Menu />
-	<div class="flex h-0 w-full flex-grow">
-		<CommunitiesBar />
+<div class="flex w-full">
+	<div class="lg:hidden">
 		<Sidebar community={$community} subdomain={data.subdomain} />
-		<slot />
+	</div>
+	<div
+		class="z-0 flex h-screen w-full flex-col max-lg:shadow-2xl lg:fixed {$menuOpen
+			? 'max-lg:translate-x-72'
+			: ''}"
+	>
+		<Menu />
+		<div class="flex h-0 w-full flex-grow">
+			<CommunitiesBar />
+			<div class="max-lg:hidden">
+				<Sidebar community={$community} subdomain={data.subdomain} />
+			</div>
+			<slot />
+		</div>
 	</div>
 </div>
