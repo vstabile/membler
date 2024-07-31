@@ -15,7 +15,7 @@
 	$: channel = $channels.flatMap((g) => g.channels).find((c) => c.id === id);
 </script>
 
-<div class="flex h-full flex-grow flex-col border-l">
+<div class="flex h-full flex-grow flex-col">
 	<div class="flex h-16 flex-none items-center justify-between border-b bg-white px-6">
 		<DropdownMenu.Root>
 			<DropdownMenu.Trigger asChild let:builder>

@@ -5,7 +5,7 @@
 	$: slug = $page.params.slug;
 </script>
 
-<div class="flex h-full flex-grow flex-col border-l">
+<div class="flex h-full flex-grow flex-col">
 	<div class="flex h-16 flex-none items-center justify-between border-b px-6">
 		<div class="flex items-center">
 			<h1 class="text-lg font-semibold">{$t('members')}</h1>

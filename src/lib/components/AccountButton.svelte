@@ -25,6 +25,16 @@
 							alt={$profile.name}
 							class="h-8 w-8 rounded-md bg-purple-200"
 						/>
+
+						{#if name}
+							<div class="pl-3 text-sidebarText">
+								{#if $profile?.name}
+									{$profile.name}
+								{:else}
+									{nip19.npubEncode($session.pubkey).substring(0, 20) + '...'}
+								{/if}
+							</div>
+						{/if}
 					{/if}
 				</button>
 			</DropdownMenu.Trigger>
@@ -49,16 +59,6 @@
 				</DropdownMenu.Group>
 			</DropdownMenu.Content>
 		</DropdownMenu.Root>
-
-		{#if name}
-			<div class="pl-3 text-sidebarText">
-				{#if $profile?.name}
-					{$profile.name}
-				{:else}
-					{nip19.npubEncode($session.pubkey).substring(0, 20) + '...'}
-				{/if}
-			</div>
-		{/if}
 	{:else}
 		<a href="/sign-in?redirectUrl={redirectUrl}" class="text-sm">{$t('sign-in')}</a>
 	{/if}

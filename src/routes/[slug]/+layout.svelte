@@ -4,7 +4,7 @@
 	import Sidebar from '$lib/components/Sidebar.svelte';
 	import community from '$lib/stores/community';
 	import themes from '$lib/stores/themes';
-	import menuOpen from '$lib/stores/menuOpen';
+	import sidebarOpen from '$lib/stores/sidebarOpen.js';
 	import { page } from '$app/stores';
 	import { atag } from '$lib/stores/community';
 	import { browser } from '$app/environment';
@@ -25,7 +25,7 @@
 		<Sidebar community={$community} subdomain={data.subdomain} />
 	</div>
 	<div
-		class="z-0 flex h-screen w-full flex-col max-lg:shadow-2xl lg:fixed {$menuOpen
+		class="z-0 flex h-screen w-full flex-col max-lg:shadow-2xl lg:fixed {$sidebarOpen
 			? 'max-lg:translate-x-72'
 			: ''}"
 	>

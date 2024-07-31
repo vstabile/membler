@@ -1,6 +1,9 @@
 <script lang="ts">
 	import LucideHome from '~icons/lucide/home';
 	import LucideUsers from '~icons/lucide/users';
+	import LucideSearch from '~icons/lucide/search';
+	import LucideBell from '~icons/lucide/bell';
+	import LucideMessageCircle from '~icons/lucide/message-circle';
 	import LucideChevronDown from '~icons/lucide/chevron-down';
 	import LucideSettings from '~icons/lucide/settings';
 	import LucidePalette from '~icons/lucide/palette';
@@ -11,6 +14,7 @@
 	import channels from '$lib/stores/channels';
 	import isModerator from '$lib/stores/isModerator';
 	import LinkList from './LinkList.svelte';
+	import { page } from '$app/stores';
 	import { PUBLIC_DOMAIN, PUBLIC_PORT, PUBLIC_PROTOCOL } from '$env/static/public';
 	import AccountButton from './AccountButton.svelte';
 
@@ -67,11 +71,39 @@
 	</DropdownMenu.Root>
 	<div class="flex h-full flex-col overflow-y-auto pb-24 lg:pb-11">
 		<div class="flex w-full flex-col p-3 text-sm">
-			<a href="/{communitySlug}" class="flex items-center rounded-md p-2 hover:bg-itemHover">
+			<a href="/{communitySlug}" class="mb-0.5 flex items-center rounded-md px-2 py-1.5 lg:hidden">
+				<LucideSearch class="mr-2 h-4 w-4" />
+				<span>{$t('search')}</span>
+			</a>
+			<a
+				href="/{communitySlug}"
+				class="mb-0.5 flex items-center rounded-md px-2 py-1.5"
+				class:hover:bg-itemHover={$page.route.id !== '/[slug]'}
+				class:bg-itemActive={$page.route.id === '/[slug]'}
+				class:text-itemActiveText={$page.route.id === '/[slug]'}
+			>
 				<LucideHome class="mr-2 h-4 w-4" />
 				<span>{$t('home')}</span>
 			</a>
-			<a href="/{communitySlug}members" class="flex items-center rounded-md p-2 hover:bg-itemHover">
+			<a href="/{communitySlug}" class="mb-0.5 flex items-center rounded-md px-2 py-1.5 lg:hidden">
+				<LucideBell class="mr-2 h-4 w-4" />
+				<span>{$t('notifications')}</span>
+			</a>
+
+			<a
+				href="/{communitySlug}/messages"
+				class="mb-0.5 flex items-center rounded-md px-2 py-1.5 lg:hidden"
+			>
+				<LucideMessageCircle class="mr-2 h-4 w-4" />
+				<span>{$t('dms')}</span>
+			</a>
+			<a
+				href="/{communitySlug}members"
+				class="flex items-center rounded-md px-2 py-1.5"
+				class:hover:bg-itemHover={$page.route.id !== '/[slug]/members'}
+				class:bg-itemActive={$page.route.id === '/[slug]/members'}
+				class:text-itemActiveText={$page.route.id === '/[slug]/members'}
+			>
 				<LucideUsers class="mr-2 h-4 w-4" />
 				<span>{$t('members')}</span>
 			</a>
@@ -82,9 +114,12 @@
 				{#each group.channels as channel}
 					<a
 						href="/{communitySlug}c/{channel.id}"
-						class="flex items-center rounded-md px-2 py-1 hover:bg-itemHover"
+						class="mb-0.5 flex items-center rounded-md px-2 py-1"
+						class:hover:bg-itemHover={channel.id !== $page.params.id}
+						class:bg-itemActive={channel.id === $page.params.id}
+						class:text-itemActiveText={channel.id === $page.params.id}
 					>
-						{#if channel.emoji}<span class="mr-2 text-lg">{channel.emoji}</span>{/if}
+						{#if channel.emoji}<span class="mr-2 text-base">{channel.emoji}</span>{/if}
 						<span>{channel.name}</span>
 					</a>
 				{/each}

@@ -97,7 +97,7 @@
 			<a
 				href={link.url}
 				target="_blank"
-				class="group flex items-center justify-between rounded-md p-2 hover:bg-itemHover"
+				class="group mb-0.5 flex items-center justify-between rounded-md px-2 py-1.5 hover:bg-itemHover"
 			>
 				<div class="flex">
 					<LucideArrowUpRight class="mr-2 flex h-4 w-4" /> <span class="flex">{link.title}</span>

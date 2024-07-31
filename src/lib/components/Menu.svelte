@@ -5,8 +5,7 @@
 	import LucideMenu from '~icons/lucide/menu';
 	import * as Tooltip from '$lib/components/ui/tooltip';
 	import community from '$lib/stores/community';
-	import menuOpen from '$lib/stores/menuOpen';
-	import { page } from '$app/stores';
+	import sidebarOpen from '$lib/stores/sidebarOpen';
 	import { t } from '$lib/i18n';
 	import Skeleton from './ui/skeleton/skeleton.svelte';
 	import AccountButton from './AccountButton.svelte';
@@ -14,9 +13,9 @@
 
 <div
 	class="flex w-full items-center justify-between border-b bg-headerBg px-6 py-2 max-lg:h-16"
-	class:menu-open={menuOpen}
+	class:menu-open={sidebarOpen}
 >
-	<button class="flex lg:hidden" on:click={() => ($menuOpen = !$menuOpen)}>
+	<button class="flex lg:hidden" on:click={() => ($sidebarOpen = !$sidebarOpen)}>
 		<LucideMenu class="h-6 w-6" />
 	</button>
 	<div class="flex flex-grow justify-center">
