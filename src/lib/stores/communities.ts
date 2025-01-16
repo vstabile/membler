@@ -94,9 +94,13 @@ const communities = derived<[typeof ndk, typeof communitiesList], Community[]>(
 
 			mostRecentEvents.set(dedupKey, event);
 
+			const community_id = event.tagValue('d');
+			const community_name = event.tagValue('name');
+			if (!community_id || !community_name) return;
+
 			const community = {
-				id: event.tagValue('d'),
-				name: event.tagValue('name'),
+				id: community_id,
+				name: community_name,
 				icon: event.tagValue('icon'),
 				logo: event.tagValue('logo'),
 				subdomain: event.tagValue('membler')

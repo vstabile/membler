@@ -1,4 +1,5 @@
 <script lang="ts">
+	import ndk from '$lib/stores/ndk';
 	import { LucideChevronDown } from 'lucide-svelte';
 	import LucideTrash2 from '~icons/lucide/trash-2';
 	import LucideLogOut from '~icons/lucide/log-out';
@@ -6,13 +7,50 @@
 	import { t } from '$lib/i18n';
 	import { page } from '$app/stores';
 	import channels from '$lib/stores/channels';
+	import isMember from '$lib/stores/isMember';
 	import NewFirstPost from '$lib/components/NewFirstPost.svelte';
 	import isModerator from '$lib/stores/isModerator';
 	import Skeleton from '$lib/components/ui/skeleton/skeleton.svelte';
+	import newPostOpen from '$lib/stores/newPostOpen';
+	import fetchMessages from '$lib/queries/fetchMessages';
+	import { onDestroy } from 'svelte';
+	import PostCard from '$lib/components/PostCard.svelte';
+	import { liveQuery } from 'dexie';
+	import db from '$lib/db';
+	import type { NDKSubscription } from '@nostr-dev-kit/ndk';
+	import { browser } from '$app/environment';
+	import NewPostButton from '$lib/components/NewPostButton.svelte';
 
 	$: id = $page.params.id;
 	$: slug = $page.params.slug;
 	$: channel = $channels.flatMap((g) => g.channels).find((c) => c.id === id);
+
+	$: messages = liveQuery(() =>
+		db.messages
+			.orderBy('createdAt')
+			.reverse()
+			.filter(
+				(item) =>
+					item.communityId === slug &&
+					item.channelId === id &&
+					!item.replyTo &&
+					!item.deletedAt &&
+					!item.hiddenAt
+			)
+			.toArray()
+	);
+
+	let subscription: NDKSubscription | undefined;
+
+	$: if (browser && id && $ndk) {
+		fetchMessages(slug, id).then((s) => {
+			subscription = s;
+		});
+	}
+
+	onDestroy(() => {
+		if (subscription) subscription.stop();
+	});
 </script>
 
 <div class="flex h-full flex-grow flex-col">
@@ -51,14 +89,28 @@
 			</DropdownMenu.Content>
 		</DropdownMenu.Root>
 		<div>
-			<button class="rounded-md bg-brand px-5 text-sm font-semibold leading-8 text-buttonText"
-				>{$t('new-post')}</button
-			>
+			{#if $isMember}
+				<button
+					class="rounded-md bg-brand px-5 text-sm font-semibold leading-8 text-buttonText"
+					on:click={() => ($newPostOpen = true)}
+				>
+					{$t('new-post')}
+				</button>
+			{/if}
 		</div>
 	</div>
 	<div class="flex h-full w-full items-center justify-center overflow-y-auto bg-gray-100 p-5">
 		<div class="flex h-full w-full max-w-2xl flex-col">
-			<NewFirstPost />
+			{#if $messages && $messages.length > 0}
+				{#if $isMember}
+					<NewPostButton />
+				{/if}
+				{#each $messages as message (message.id)}
+					<PostCard {message} />
+				{/each}
+			{:else if $isMember}
+				<NewFirstPost />
+			{/if}
 			<br class="h-5" />
 		</div>
 	</div>

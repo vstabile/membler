@@ -8,22 +8,31 @@
 	import { page } from '$app/stores';
 	import { t } from '$lib/i18n';
 	import { nip19 } from 'nostr-tools';
+	import AccountBar from './AccountBar.svelte';
 
 	export let name = false;
+
+	let open: boolean;
+	let accountDrawerOpen = false;
+
+	function openAccountDrawer() {
+		accountDrawerOpen = true;
+		open = false;
+	}
 
 	$: redirectUrl = encodeURIComponent($page.url.toString());
 </script>
 
 <div class="flex items-center">
 	{#if $session.pubkey}
-		<DropdownMenu.Root>
+		<DropdownMenu.Root bind:open>
 			<DropdownMenu.Trigger>
 				<button title="Account" class="flex items-center justify-center">
 					{#if $profile}
 						<img
 							src={$profile.picture}
 							alt={$profile.name}
-							class="h-8 w-8 rounded-md bg-purple-200"
+							class="h-8 w-8 rounded-md bg-purple-200 object-cover"
 						/>
 
 						{#if name}
@@ -44,7 +53,7 @@
 						{$t('account').toUpperCase()}
 					</DropdownMenu.Label>
 					<DropdownMenu.Item class="text-sm">
-						<a href="/account" class="flex w-full">
+						<a href="/account" class="flex w-full" on:click|preventDefault={openAccountDrawer}>
 							<LucideUser class="mr-2" />
 							{$t('view-profile')}
 						</a>
@@ -63,3 +72,5 @@
 		<a href="/sign-in?redirectUrl={redirectUrl}" class="text-sm">{$t('sign-in')}</a>
 	{/if}
 </div>
+
+<AccountBar bind:open={accountDrawerOpen} />

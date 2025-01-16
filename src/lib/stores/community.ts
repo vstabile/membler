@@ -5,11 +5,11 @@ import { nip19 } from 'nostr-tools';
 
 export type Community = {
 	id: string;
-	name: string;
+	name?: string;
 	icon?: string;
 	logo?: string;
-	subdomain: string;
-	locale: string;
+	subdomain?: string;
+	locale?: string;
 	atag: string;
 	naddr: string;
 	moderators: string[];
@@ -17,7 +17,7 @@ export type Community = {
 
 export const atag = writable<string | null>(null);
 
-const community = derived<[typeof ndk, typeof atag], Community>(
+const community = derived<[typeof ndk, typeof atag], Community | null>(
 	[ndk, atag],
 	([$ndk, $atag], set, update) => {
 		if (!$atag) return;
@@ -51,9 +51,9 @@ const community = derived<[typeof ndk, typeof atag], Community>(
 				.map((t: string[]) => t[1]);
 
 			const naddr = nip19.naddrEncode({
-				kind: event.kind,
+				kind: event.kind!,
 				pubkey: event.pubkey,
-				identifier: event.tagValue('d')
+				identifier: event.tagValue('d')!
 			});
 
 			const community = {

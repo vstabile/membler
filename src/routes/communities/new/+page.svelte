@@ -68,7 +68,7 @@
 			const data = result.data!.form.data;
 			const timeout = new Promise((resolve) => setTimeout(resolve, 400));
 			Promise.all([publishEvents(data), timeout]).then(() => {
-				window.location.href = `${PUBLIC_PROTOCOL}://${data.subdomain}.${PUBLIC_DOMAIN}:${PUBLIC_PORT}`;
+				window.location.href = `${PUBLIC_PROTOCOL}://${data.subdomain}.${PUBLIC_DOMAIN}:${PUBLIC_PORT}/templates`;
 			});
 		}
 	});

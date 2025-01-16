@@ -25,7 +25,15 @@
 	"community": "Comunidade",
 	"settings": "Configurações",
 	"customize-theme": "Personalizar Tema",
+	"post": "Publicação",
 	"new-post": "Nova publicação",
+	"title-optional": "Título (opcional)",
+	"write-something": "Escreva algo...",
+	"what-are-your-thoughts": "O que está pensando?",
+	"select-a-channel": "Selecione um canal...",
+	"search-channel": "Buscar canal...",
+	"no-channel-found": "Nenhum canal encontrado",
+	"publish": "Publicar",
 	"start-post": "Começar uma publicação",
 	"channels": "Canais",
 	"channel": "Canal",
@@ -33,8 +41,12 @@
 	"leave-channel": "Sair do canal",
 	"delete-channel": "Excluir canal",
 	"like": "Curtir",
+	"likes": "Curtidas",
 	"comment": "Comentar",
 	"comments": "comentários",
+	"reply": "Responder",
+	"replies": "Respostas",
+	"replying-to": "Respondendo para {{ value }}",
 	"bookmark-post": "Salvar publicação",
 	"report-post": "Reportar publicação",
 	"create-community-title": "Vamos criar sua comunidade",
@@ -52,13 +64,18 @@
 		"educators": "educadores",
 		"events": "eventos",
 		"influencers": "influencers",
-		"creators": "criadores"
+		"creators": "criadores",
+		"built-at": "Construído na"
 	},
 	"onboarding": {
 		"template-title": "Escolha os canais iniciais para a sua comunidade",
 		"template-text": "Você pode adicionar, remover e personalizar todos os canais mais tarde.",
 		"finish": "Finalizar",
-		"skip": "Pular"
+		"skip": "Pular",
+		"invite-title": "Seja membro da comunidade",
+		"invite-text": "Você foi convidado para participar da {{ value }}. Apenas membros aprovados podem publicar mensagens em seus canais.",
+		"join": "Participar",
+		"ignore": "Ignorar"
 	},
 	"templates": {
 		"get-started": "Vamos Começar",
@@ -94,7 +111,10 @@
 		"community-locale-required": "O idioma padrão da comunidade é obrigatório.",
 		"link-url-invalid": "Essa URL não é válida",
 		"link-title-short": "Título do link precisa ter pelo menos 2 caracteres",
-		"link-title-long": "Título do link pode ter no máximo 20 caracteres"
+		"link-title-long": "Título do link pode ter no máximo 20 caracteres",
+		"post-content-short": "A publicação precisa ter pelo menos 1 caractere",
+		"post-content-long": "A publicação pode ter no máximo 3000 caracteres",
+		"invalid-channel-id": "Este canal não existe."
 	},
 	"errors": {
 		"naddr-invalid": "O naddr da comunidade é inválido.",

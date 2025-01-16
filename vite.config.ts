@@ -18,7 +18,7 @@ export default ({ mode }) => {
 		],
 		server: {
 			host: '0.0.0.0',
-			origin: 'http://membler.local',
+			origin: 'http://www.membler.local:3030',
 			port: parseInt(process.env.VITE_PORT || '3030', 10) || 3030
 		}
 	});

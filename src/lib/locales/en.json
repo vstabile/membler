@@ -5,7 +5,7 @@
 	"search": "Search",
 	"edit": "Edit",
 	"remove": "Remove",
-	"powered-by": "Powered by",
+	"powered-by-membler": "Powered by Membler",
 	"start-discussion": "Start a discussion",
 	"create-first-post": "Create the first post",
 	"and": "and",
@@ -25,7 +25,15 @@
 	"community": "Community",
 	"settings": "Settings",
 	"customize-theme": "Customize Theme",
+	"post": "Post",
 	"new-post": "New post",
+	"title-optional": "Title (optional)",
+	"write-something": "Write something...",
+	"what-are-your-thoughts": "What are your thoughts?",
+	"select-a-channel": "Select a channel...",
+	"search-channel": "Search channel...",
+	"no-channel-found": "No channel found",
+	"publish": "Publish",
 	"start-post": "Start a post",
 	"channels": "Channels",
 	"channel": "Channel",
@@ -33,8 +41,12 @@
 	"leave-channel": "Leave channel",
 	"delete-channel": "Delete channel",
 	"like": "Like",
+	"likes": "Likes",
 	"comment": "Comment",
 	"comments": "comments",
+	"reply": "Reply",
+	"replies": "Replies",
+	"replying-to": "Replying to {{ value }}",
 	"bookmark-post": "Bookmark post",
 	"report-post": "Report post",
 	"create-community-title": "Let’s create your community",
@@ -52,13 +64,18 @@
 		"educators": "educators",
 		"events": "events",
 		"influencers": "influencers",
-		"creators": "creators"
+		"creators": "creators",
+		"built-at": "Built at"
 	},
 	"onboarding": {
 		"template-title": "Set up some initial channels for your community",
 		"template-text": "You can add, remove and customize all channels later.",
 		"finish": "Finish",
-		"skip": "Skip"
+		"skip": "Skip",
+		"invite-title": "Join the community",
+		"invite-text": "You've been invited to join {{ value }}. Only approved members can post to its channels.",
+		"join": "Join",
+		"ignore": "Ignore"
 	},
 	"templates": {
 		"get-started": "Get Started",
@@ -94,7 +111,10 @@
 		"community-locale-required": "Community default language is required.",
 		"link-url-invalid": "This URL is not valid",
 		"link-title-short": "Title must be at least 2 characters long.",
-		"link-title-long": "Title must be at most 20 characters long."
+		"link-title-long": "Title must be at most 20 characters long.",
+		"post-content-short": "Post content must be at least 1 characters long.",
+		"post-content-long": "Post content must be at most 3000 characters long.",
+		"invalid-channel-id": "This channel that does not exist."
 	},
 	"errors": {
 		"naddr-invalid": "Community naddr is invalid",

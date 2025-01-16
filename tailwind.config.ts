@@ -49,6 +49,8 @@ const config: Config = {
 					foreground: 'hsl(var(--card-foreground) / <alpha-value>)'
 				},
 				brand: 'var(--brand-color)',
+				onboarding: 'var(--onboarding-color)',
+				onboardingBg: 'var(--onboarding-bg-color)',
 				buttonText: 'var(--button-text-color)',
 				headerBg: 'var(--header-bg-color)',
 				headerText: 'var(--header-text-color)',

@@ -7,16 +7,11 @@
 	import thumbnail_en from '$lib/assets/thumbnail-en.png';
 	import thumbnail_pt from '$lib/assets/thumbnail-pt.png';
 	import { page } from '$app/stores';
-	import session from '$lib/stores/session';
 	import { Toaster } from '$lib/components/ui/sonner';
-	import { toast } from 'svelte-sonner';
-	import { dev } from '$app/environment';
-	import { inject } from '@vercel/analytics';
 
 	const thumbnails: Record<string, string> = { en: thumbnail_en, pt: thumbnail_pt };
 
 	$: thumbnail = thumbnails[$locale || 'en'] || thumbnail_en;
-	$: if ($session.consent) inject({ mode: dev ? 'development' : 'production' });
 
 	onMount(async () => {
 		const currentPath = $page.url.pathname;
@@ -24,25 +19,7 @@
 
 		await $ndk.connect(10000);
 
-		const unsubscribe = loading.subscribe((value) => {
-			if (!value && $session.consent === undefined) {
-				toast($t('analytics-consent'), {
-					duration: 60 * 1000,
-					cancel: {
-						label: $t('no'),
-						onClick: () => session.setConsent(false)
-					},
-					action: {
-						label: $t('yes'),
-						onClick: () => session.setConsent(true)
-					}
-				});
-			}
-		});
-
 		signIn();
-
-		return unsubscribe();
 	});
 </script>
 

@@ -1,6 +1,7 @@
 <script lang="ts">
 	import Typed from 'typed.js';
 	import LucideGithub from '~icons/lucide/github';
+	import casa21 from '$lib/assets/casa21.png';
 	import { t, locale } from '$lib/i18n';
 	import { onDestroy, onMount } from 'svelte';
 	import session from '$lib/stores/session';
@@ -96,6 +97,14 @@
 	<div class="flex justify-between px-8 pb-6 pt-10 md:px-10 md:pb-10">
 		<a href="https://github.com/vstabile/membler" class="flex items-center" target="_blank">
 			<LucideGithub class="mr-1" /> Github
+		</a>
+		<a
+			href="https://vinteum.org/"
+			target="_blank"
+			class="relative top-[-7px] flex flex-col items-center"
+		>
+			<span class="text-xs text-gray-600">{$t('homepage.built-at')}</span>
+			<img src={casa21} alt="Casa21" class="h-4 sm:h-5" />
 		</a>
 		<LocaleSelector />
 	</div>

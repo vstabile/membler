@@ -9,15 +9,13 @@ export type Session = {
 	signInMethod: SignInMethod;
 	privateKey: string | undefined;
 	locale: string;
-	consent: boolean | undefined;
 };
 
 const emptySession: Session = {
 	pubkey: null,
 	signInMethod: null,
 	privateKey: undefined,
-	locale: 'en',
-	consent: undefined
+	locale: 'en'
 };
 
 const restoreSession = () => {
@@ -42,9 +40,6 @@ function createSessionStore() {
 		},
 		setLocale: (newLocale: string) => {
 			update((session) => ({ ...session, locale: newLocale }));
-		},
-		setConsent: (consent: boolean) => {
-			update((session) => ({ ...session, consent: consent }));
 		},
 		clear: () => set(emptySession)
 	};

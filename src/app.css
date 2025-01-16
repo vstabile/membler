@@ -80,4 +80,23 @@
 	body {
 		@apply bg-background text-foreground;
 	}
+	::-webkit-scrollbar {
+		width: 12px; /* Adjust the width if needed */
+	}
+
+	::-webkit-scrollbar-track {
+		background: #ffffff; /* Scrollbar track color */
+	}
+
+	::-webkit-scrollbar-thumb {
+		background-color: #cccccc; /* Scrollbar thumb color */
+		border-radius: 6px; /* Rounded corners */
+		border: 3px solid #ffffff; /* Adds some space around the thumb */
+	}
+
+	/* For Firefox */
+	* {
+		scrollbar-width: thin;
+		scrollbar-color: #cccccc #ffffff;
+	}
 }

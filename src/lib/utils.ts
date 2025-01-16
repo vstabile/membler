@@ -2,6 +2,17 @@ import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import { cubicOut } from 'svelte/easing';
 import type { TransitionConfig } from 'svelte/transition';
+import { nip19 } from 'nostr-tools';
+
+export function robohash(pubkey?: string) {
+	return `https://robohash.org/${pubkey ?? 'undefined'}.png?set=set1&size=96x96`;
+}
+
+export function truncatedNpub(pubkey?: string) {
+	if (!pubkey) return 'Undefined';
+	const npub = nip19.npubEncode(pubkey);
+	return npub.slice(0, 15) + '...' + npub.slice(-5);
+}
 
 export function uuidToBase64(uuid: string) {
 	const cleanUuid = uuid.replace(/-/g, '');

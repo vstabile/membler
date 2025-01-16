@@ -1,4 +1,5 @@
 <script lang="ts">
+	import NewPostDialog from '$lib/components/NewPostDialog.svelte';
 	import CommunitiesBar from '$lib/components/CommunitiesBar.svelte';
 	import Menu from '$lib/components/Menu.svelte';
 	import Sidebar from '$lib/components/Sidebar.svelte';
@@ -9,6 +10,7 @@
 	import { atag } from '$lib/stores/community';
 	import { browser } from '$app/environment';
 	import { PUBLIC_PROTOCOL, PUBLIC_DOMAIN, PUBLIC_PORT } from '$env/static/public';
+	import PostDialog from '$lib/components/PostDialog.svelte';
 
 	export let data;
 
@@ -39,3 +41,7 @@
 		</div>
 	</div>
 </div>
+
+<NewPostDialog />
+
+<PostDialog />

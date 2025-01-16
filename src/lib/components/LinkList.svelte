@@ -8,18 +8,37 @@
 	import session from '$lib/stores/session';
 	import community from '$lib/stores/community';
 	import isModerator from '$lib/stores/isModerator';
-	import links from '$lib/stores/links';
 	import { LucideArrowUpRight, LucidePlus, LucideMoreHorizontal } from 'lucide-svelte';
 	import Button from './ui/button/button.svelte';
 	import { superForm } from 'sveltekit-superforms';
 	import { zodClient } from 'sveltekit-superforms/adapters';
 	import { z } from 'zod';
-	import { NDKEvent } from '@nostr-dev-kit/ndk';
-	import { LINKS_SET_EVENT_KIND } from '$lib/constants';
+	import { NDKSubscription } from '@nostr-dev-kit/ndk';
+	import updateLinks from '$lib/commands/links/updateLinks';
+	import fetchLinks from '$lib/queries/fetchLinks';
+	import { onDestroy } from 'svelte';
+	import type { Link } from '$lib/db';
+	import { liveQuery } from 'dexie';
+	import db from '$lib/db';
 
+	let subscription: NDKSubscription | undefined;
 	let dialogOpen = false;
 	let oldUrl: string | null = null;
 	$: if (!dialogOpen) oldUrl = null;
+
+	$: links = $community
+		? liveQuery<Link[]>(() => db.links.where('communityId').equals($community.id).toArray())
+		: null;
+
+	$: if ($ndk && $community) {
+		fetchLinks($community.id).then((s) => {
+			subscription = s;
+		});
+	}
+
+	onDestroy(() => {
+		if (subscription) subscription.stop();
+	});
 
 	const formSchema = z.object({
 		title: z.string().min(2, $t('link-title-short')).max(20, $t('link-title-long')),
@@ -42,40 +61,27 @@
 	);
 
 	async function saveLink() {
-		console.log($formData);
 		const pubkey = $session.pubkey!;
-		const dtag = $community.atag.split(':')[2];
-		const existingLinks = $links
-			.filter((l) => l.author === pubkey && l.url !== oldUrl)
-			.map((l) => ['r', l.url, l.title]);
+		const dtag = $community!.atag.split(':')[2];
+		const existingLinks = $links!.filter((l) => l.author === pubkey && l.url !== oldUrl);
 
-		const event = new NDKEvent($ndk, {
-			pubkey,
-			content: '',
-			created_at: Math.floor(Date.now() / 1000),
-			kind: LINKS_SET_EVENT_KIND,
-			tags: [...[['d', dtag]], ...existingLinks, ['r', $formData.url, $formData.title]]
-		});
+		const updatedLinks = [
+			...existingLinks,
+			{
+				title: $formData.title,
+				url: $formData.url
+			}
+		];
 
-		return event.publish();
+		return updateLinks(dtag, updatedLinks);
 	}
 
 	async function removeLink(url: string) {
 		const pubkey = $session.pubkey!;
-		const dtag = $community.atag.split(':')[2];
-		const updatedLinks = $links
-			.filter((l) => l.author === pubkey && l.url !== url)
-			.map((l) => ['r', l.url, l.title]);
+		const dtag = $community!.atag.split(':')[2];
+		const updatedLinks = $links!.filter((l) => l.author === pubkey && l.url !== url);
 
-		const event = new NDKEvent($ndk, {
-			pubkey,
-			content: '',
-			created_at: Math.floor(Date.now() / 1000),
-			kind: LINKS_SET_EVENT_KIND,
-			tags: [...[['d', dtag]], ...updatedLinks]
-		});
-
-		return event.publish();
+		return updateLinks(dtag, updatedLinks);
 	}
 
 	function openEditDialog(title: string, url: string) {
@@ -88,7 +94,7 @@
 	const { form: formData, enhance } = form;
 </script>
 
-{#if $isModerator || $links.length > 0}
+{#if $isModerator && $links}
 	<div class="flex w-full flex-col p-3 text-sm">
 		<div class="mb-2 px-2 font-semibold">
 			{$t('links', { value: 2 })}

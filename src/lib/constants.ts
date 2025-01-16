@@ -8,4 +8,10 @@ export const CHANNEL_EVENT_KIND = 40;
 
 export const CHANNEL_METADATA_EVENT_KIND = 41;
 
+export const MESSAGE_EVENT_KIND = 42;
+
+export const HIDE_MESSAGE_EVENT_KIND = 43;
+
+export const MUTE_USER_EVENT_KIND = 44;
+
 export const LINKS_SET_EVENT_KIND = 30003;

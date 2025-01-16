@@ -3,6 +3,8 @@ import { writable } from 'svelte/store';
 type Theme = {
 	id: string;
 	brandColor: string;
+	onboardingColor?: string;
+	onboardingBgColor?: string;
 	buttonTextColor?: string;
 	headerBgColor?: string;
 	headerTextColor?: string;
@@ -18,6 +20,8 @@ type ThemeTemplate = Omit<Theme, 'id'>;
 
 const defaultTheme = {
 	brandColor: '#2b2e33',
+	onboardingColor: '#581c87',
+	onboardingBgColor: '#f3e8ff',
 	buttonTextColor: '#ffffff',
 	headerBgColor: '#ffffff',
 	headerTextColor: '#545861',
@@ -33,6 +37,7 @@ const mockThemes: Theme[] = [
 	{
 		id: 'a',
 		brandColor: '#ff5e84',
+		onboardingBgColor: '#ffe9ee',
 		buttonTextColor: '#ffffff',
 		headerBgColor: '#F7F9FA',
 		sidebarBgColor: '#01163F',
@@ -76,6 +81,14 @@ function createThemes() {
 			theme.buttonTextColor ?? defaultTheme.buttonTextColor
 		);
 		document.documentElement.style.setProperty(
+			'--onboarding-color',
+			theme.onboardingColor ?? theme.brandColor ?? defaultTheme.onboardingColor
+		);
+		document.documentElement.style.setProperty(
+			'--onboarding-bg-color',
+			theme.onboardingBgColor ?? defaultTheme.onboardingBgColor
+		);
+		document.documentElement.style.setProperty(
 			'--header-bg-color',
 			theme.headerBgColor ?? defaultTheme.headerBgColor
 		);
@@ -117,7 +130,7 @@ function createThemes() {
 				themes = value;
 			})();
 			let theme = themes.find((t) => t.id === id);
-			theme = theme ? { ...defaultTheme, ...theme } : { ...defaultTheme, id: '0' };
+			theme = theme ? theme : { ...defaultTheme, id: '0' };
 			applyTheme(theme);
 			return theme;
 		}

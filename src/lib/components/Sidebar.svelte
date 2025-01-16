@@ -53,12 +53,12 @@
 					<DropdownMenu.Label class="mb-1 text-xs font-medium">
 						{$t('community').toUpperCase()}
 					</DropdownMenu.Label>
-					<DropdownMenu.Item class="text-sm">
+					<!-- <DropdownMenu.Item class="text-sm">
 						<a href="/communities/{community?.id}/settings" class="flex w-full">
 							<LucideSettings class="mr-2" />
 							{$t('settings')}
 						</a>
-					</DropdownMenu.Item>
+					</DropdownMenu.Item> -->
 					<DropdownMenu.Item class="text-sm">
 						<a href="/communities/{community?.id}/settings/theme" class="flex w-full">
 							<LucidePalette class="mr-2" />
@@ -134,8 +134,9 @@
 			<AccountButton name={true} />
 		</div>
 		<div class="flex p-3 opacity-50">
-			{$t('powered-by')}
-			<a class="ml-1" href={`${PUBLIC_PROTOCOL}://www.${PUBLIC_DOMAIN}:${PUBLIC_PORT}`}>Membler</a>
+			<a href={`${PUBLIC_PROTOCOL}://www.${PUBLIC_DOMAIN}:${PUBLIC_PORT}`}
+				>{$t('powered-by-membler')}
+			</a>
 		</div>
 	</div>
 </div>
