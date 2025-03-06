@@ -24,7 +24,9 @@
 	"link-url": "URL do Link",
 	"community": "Comunidade",
 	"settings": "Configurações",
+	"community-settings": "Configurações da Comunidade",
 	"customize-theme": "Personalizar Tema",
+	"update": "Atualizar",
 	"post": "Publicação",
 	"new-post": "Nova publicação",
 	"title-optional": "Título (opcional)",
@@ -100,7 +102,12 @@
 		"pt": "Português"
 	},
 	"next": "Próximo",
+	"community-name-label": "Nome da Comunidade",
 	"community-name-placeholder": "Nome da Comunidade",
+	"community-description-label": "Descrição",
+	"community-description-placeholder": "Descrição da Comunidade",
+	"community-icon-label": "Ícone",
+	"community-logo-label": "Logo",
 	"community-subdomain-placeholder": "nome-da-comunidade",
 	"validation": {
 		"community-name-required": "O nome da comunidade é obrigatório.",

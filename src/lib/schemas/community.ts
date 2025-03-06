@@ -17,6 +17,8 @@ export const formSchema = z.object({
 		.refine((value) => !FORBIDDEN_SUBDOMAINS.includes(value), {
 			message: 'subdomain-forbidden'
 		}),
+	image: z.string().optional().or(z.literal('')),
+	icon: z.string().optional().or(z.literal('')),
 	locale: z.enum(['en', 'pt'], { required_error: 'community-locale-required' }),
 	atag: z.string().regex(ATAG_REGEX)
 });

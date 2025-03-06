@@ -10,8 +10,8 @@
 	import { t } from '$lib/i18n';
 	import { goto } from '$app/navigation';
 	import { browser } from '$app/environment';
+	import { formSchema, type FormSchema } from '$lib/schemas/community';
 	import { zodClient } from 'sveltekit-superforms/adapters';
-	import { formSchema, type FormSchema } from './schema';
 	import { type Infer, type SuperValidated, superForm } from 'sveltekit-superforms';
 	import { v4 as uuidv4 } from 'uuid';
 	import { uuidToBase64 } from '$lib/utils';

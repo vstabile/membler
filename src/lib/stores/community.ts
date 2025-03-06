@@ -6,6 +6,7 @@ import { nip19 } from 'nostr-tools';
 export type Community = {
 	id: string;
 	name?: string;
+	description?: string;
 	icon?: string;
 	logo?: string;
 	subdomain?: string;
@@ -59,6 +60,7 @@ const community = derived<[typeof ndk, typeof atag], Community | null>(
 			const community = {
 				id: dtag,
 				name: event.tagValue('name'),
+				description: event.tagValue('description'),
 				icon: event.tagValue('icon'),
 				logo: event.tagValue('logo'),
 				subdomain: event.tagValue('membler'),

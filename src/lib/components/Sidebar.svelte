@@ -5,7 +5,6 @@
 	import LucideBell from '~icons/lucide/bell';
 	import LucideMessageCircle from '~icons/lucide/message-circle';
 	import LucideChevronDown from '~icons/lucide/chevron-down';
-	import LucideSettings from '~icons/lucide/settings';
 	import LucidePalette from '~icons/lucide/palette';
 	import { Skeleton } from '$lib/components/ui/skeleton';
 	import * as DropdownMenu from '$lib/components/ui/dropdown-menu';
@@ -17,6 +16,8 @@
 	import { page } from '$app/stores';
 	import { PUBLIC_DOMAIN, PUBLIC_PORT, PUBLIC_PROTOCOL } from '$env/static/public';
 	import AccountButton from './AccountButton.svelte';
+	import communitySettingsOpen from '$lib/stores/communitySettingsOpen';
+	import { LucideSettings } from 'lucide-svelte';
 
 	export let community: Community | undefined;
 	export let subdomain: string | undefined;
@@ -53,15 +54,15 @@
 					<DropdownMenu.Label class="mb-1 text-xs font-medium">
 						{$t('community').toUpperCase()}
 					</DropdownMenu.Label>
-					<!-- <DropdownMenu.Item class="text-sm">
-						<a href="/communities/{community?.id}/settings" class="flex w-full">
-							<LucideSettings class="mr-2" />
+					<DropdownMenu.Item class="text-sm">
+						<button class="flex w-full" on:click={() => ($communitySettingsOpen = true)}>
+							<LucideSettings class="mr-2 h-4 w-4" />
 							{$t('settings')}
-						</a>
-					</DropdownMenu.Item> -->
+						</button>
+					</DropdownMenu.Item>
 					<DropdownMenu.Item class="text-sm">
 						<a href="/communities/{community?.id}/settings/theme" class="flex w-full">
-							<LucidePalette class="mr-2" />
+							<LucidePalette class="mr-2 h-4 w-4" />
 							{$t('customize-theme')}
 						</a>
 					</DropdownMenu.Item>

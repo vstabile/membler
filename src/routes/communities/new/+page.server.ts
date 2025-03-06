@@ -1,6 +1,6 @@
 import { superValidate, setError } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
-import { formSchema } from './schema.js';
+import { formSchema } from '$lib/schemas/community';
 import redis from '$lib/redis';
 import { fail } from '@sveltejs/kit';
 

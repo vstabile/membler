@@ -24,6 +24,8 @@
 	"link-url": "Link URL",
 	"community": "Community",
 	"settings": "Settings",
+	"community-settings": "Community Settings",
+	"update": "Update",
 	"customize-theme": "Customize Theme",
 	"post": "Post",
 	"new-post": "New post",
@@ -100,7 +102,12 @@
 		"pt": "Portuguese"
 	},
 	"next": "Next",
+	"community-name-label": "Community Name",
 	"community-name-placeholder": "Community's Name",
+	"community-description-label": "Description",
+	"community-description-placeholder": "Community's Description",
+	"community-icon-label": "Icon",
+	"community-logo-label": "Logo",
 	"community-subdomain-placeholder": "community-name",
 	"validation": {
 		"community-name-required": "Community name is required.",

@@ -11,6 +11,7 @@
 	import { browser } from '$app/environment';
 	import { PUBLIC_PROTOCOL, PUBLIC_DOMAIN, PUBLIC_PORT } from '$env/static/public';
 	import PostDialog from '$lib/components/PostDialog.svelte';
+	import CommunitySettingsDialog from '$lib/components/CommunitySettingsDialog.svelte';
 
 	export let data;
 
@@ -43,5 +44,7 @@
 </div>
 
 <NewPostDialog />
+
+<CommunitySettingsDialog />
 
 <PostDialog />
