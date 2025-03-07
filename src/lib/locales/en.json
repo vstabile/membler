@@ -85,6 +85,20 @@
 		"introduce-yourself": "Introduce Yourself",
 		"resources": "Resources"
 	},
+	"theme": {
+		"brand-color": "Brand Color",
+		"onboarding-color": "Onboarding Color",
+		"onboarding-bg-color": "Onboarding Background Color",
+		"button-text-color": "Button Text Color",
+		"header-bg-color": "Header Background Color",
+		"header-text-color": "Header Text Color",
+		"sidebar-bg-color": "Sidebar Background Color",
+		"sidebar-text-color": "Sidebar Text Color",
+		"sidebar-border-color": "Sidebar Border Color",
+		"item-active-color": "Item Active Color",
+		"item-active-text-color": "Item Active Text Color",
+		"item-hover-color": "Item Hover Color"
+	},
 	"sign-up-title": "Create your account",
 	"sign-up-text": "Already have a Nostr account?",
 	"click-here": "Click here.",
@@ -121,7 +135,8 @@
 		"link-title-long": "Title must be at most 20 characters long.",
 		"post-content-short": "Post content must be at least 1 characters long.",
 		"post-content-long": "Post content must be at most 3000 characters long.",
-		"invalid-channel-id": "This channel that does not exist."
+		"invalid-channel-id": "This channel that does not exist.",
+		"invalid-hex-color": "Must be a valid hex color (e.g. #FF0000)"
 	},
 	"errors": {
 		"naddr-invalid": "Community naddr is invalid",

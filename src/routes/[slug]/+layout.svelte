@@ -12,6 +12,9 @@
 	import { PUBLIC_PROTOCOL, PUBLIC_DOMAIN, PUBLIC_PORT } from '$env/static/public';
 	import PostDialog from '$lib/components/PostDialog.svelte';
 	import CommunitySettingsDialog from '$lib/components/CommunitySettingsDialog.svelte';
+	import type { NDKEvent, NDKFilter, NDKSubscription } from '@nostr-dev-kit/ndk';
+	import { THEME_SETTINGS_EVENT_KIND } from '$lib/constants.js';
+	import ndk from '$lib/stores/ndk.js';
 
 	export let data;
 
@@ -21,6 +24,42 @@
 	$: themes.getThemeById(slug);
 	$: if (browser && community == undefined)
 		window.location.href = `${PUBLIC_PROTOCOL}://www.${PUBLIC_DOMAIN}:${PUBLIC_PORT}`;
+
+	let filters: NDKFilter | undefined;
+
+	let subscription: NDKSubscription | undefined;
+
+	$: if (slug && $community) {
+		filters = {
+			authors: $community?.moderators,
+			kinds: [THEME_SETTINGS_EVENT_KIND],
+			'#d': [`membler:theme:${slug}`]
+		};
+
+		if (subscription) {
+			subscription.stop();
+		}
+
+		subscription = $ndk.subscribe(filters, {
+			closeOnEose: false,
+			subId: `theme:${slug}`,
+			groupable: false
+		});
+
+		const mostRecentEvents: Map<string, NDKEvent> = new Map();
+
+		subscription.on('event', (event: NDKEvent) => {
+			const dedupKey = event.deduplicationKey();
+			const existingEvent = mostRecentEvents.get(dedupKey);
+			if (existingEvent && event.created_at! < existingEvent.created_at!) {
+				return;
+			}
+
+			mostRecentEvents.set(dedupKey, event);
+
+			themes.applyThemeEvent(event);
+		});
+	}
 </script>
 
 <div class="flex w-full">

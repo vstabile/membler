@@ -24,3 +24,6 @@ export const MUTE_USER_EVENT_KIND = 44;
 
 // NIP-51 Bookmarks Set
 export const LINKS_SET_EVENT_KIND = 30003;
+
+// NIP-78 Theme Settings
+export const THEME_SETTINGS_EVENT_KIND = 30078;

@@ -61,7 +61,7 @@
 						</button>
 					</DropdownMenu.Item>
 					<DropdownMenu.Item class="text-sm">
-						<a href="/communities/{community?.id}/settings/theme" class="flex w-full">
+						<a href="/{communitySlug}settings/theme" class="flex w-full">
 							<LucidePalette class="mr-2 h-4 w-4" />
 							{$t('customize-theme')}
 						</a>

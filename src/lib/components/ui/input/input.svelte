@@ -40,3 +40,10 @@
 	on:wheel|passive
 	{...$$restProps}
 />
+
+<style>
+	/* Remove background color when text is selected */
+	input::selection {
+		background-color: transparent !important;
+	}
+</style>

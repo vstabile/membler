@@ -85,6 +85,20 @@
 		"introduce-yourself": "Se Apresente",
 		"resources": "Materiais"
 	},
+	"theme": {
+		"brand-color": "Cor da Marca",
+		"onboarding-color": "Cor do Onboarding",
+		"onboarding-bg-color": "Cor de Fundo do Onboarding",
+		"button-text-color": "Cor do Texto do Botão",
+		"header-bg-color": "Cor de Fundo do Cabeçalho",
+		"header-text-color": "Cor do Texto do Cabeçalho",
+		"sidebar-bg-color": "Cor de Fundo do Lateral",
+		"sidebar-text-color": "Cor do Texto do Lateral",
+		"sidebar-border-color": "Cor da Borda do Lateral",
+		"item-active-color": "Cor do Item Ativo",
+		"item-active-text-color": "Cor do Texto do Item Ativo",
+		"item-hover-color": "Cor do Item Hover"
+	},
 	"sign-up-title": "Crie a sua conta",
 	"sign-up-text": "Você já tem uma conta no Nostr?",
 	"click-here": "Clique aqui.",
@@ -121,7 +135,8 @@
 		"link-title-long": "Título do link pode ter no máximo 20 caracteres",
 		"post-content-short": "A publicação precisa ter pelo menos 1 caractere",
 		"post-content-long": "A publicação pode ter no máximo 3000 caracteres",
-		"invalid-channel-id": "Este canal não existe."
+		"invalid-channel-id": "Este canal não existe.",
+		"invalid-hex-color": "Precisa ser uma cor válida em hexadecimal (ex. #FF0000)"
 	},
 	"errors": {
 		"naddr-invalid": "O naddr da comunidade é inválido.",
